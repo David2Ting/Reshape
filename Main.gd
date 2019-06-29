@@ -12,6 +12,7 @@ onready var sub_score = get_node('Control/Header/SubScore')
 onready var game_over = get_node('GameOver')
 onready var tween = $Tween
 onready var animation = $AnimationPlayer
+onready var menu = get_node("Menu")
 var pressed = false
 var selected_card = null setget change_selected_card
 var pressed_position = Vector2()
@@ -38,13 +39,14 @@ var USER_DIR = 'user://User_info.json'
 var swiping = false
 var swipe_spot = Vector2()
 
-var select_assist = true
+var select_assist = false
 enum STATES{checking, placed}
 var state = STATES.checking
 var previous_check = Vector2(-1,-1)
 func _ready():
 	randomize()
 	load_data()
+	menu.load_board_state()
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
 	pass
@@ -71,6 +73,13 @@ func _process(delta):
 							selected_card.flash(false)
 						for child in node_holder.get_children():
 							child.flash(false)
+				else:
+					for tile in tile_map.tile_map.get_used_cells():
+						tile_map.tile_map.set_cellv(tile,0)
+					if selected_card:
+						selected_card.flash(false)
+					for child in node_holder.get_children():
+						child.flash(false)
 
 	elif swiping and pressed:
 		if hand.get_global_mouse_position().x-swipe_spot.x > 200:
@@ -80,12 +89,13 @@ func _input(event):
 	if event.is_action_released('left_click'):
 		if selected_card and selected_card.state == selected_card.STATES.placing:
 			tile_map.place(selected_card)
-			for child in node_holder.get_children():
-				child.flash(false)
 			for tile in tile_map.tile_map.get_used_cells():
 				tile_map.tile_map.set_cellv(tile,0)
+		else:
 			if selected_card:
 				selected_card.flash(false)
+			for child in node_holder.get_children():
+				child.flash(false)
 		pressed = false
 	if event.is_action_pressed('left_click') and selected_card and tile_map.check_on_map(tile_map.get_global_mouse_position()):
 		tile_map.place(selected_card, tile_map.coordinates(tile_map.get_global_mouse_position()))
@@ -206,6 +216,7 @@ func check_results(type, shape_nodes, number_nodes, original_node):
 			original_node.number = int(max_num)
 			yield(merging_node.move_tween,'tween_completed')
 			original_node.init(max_shape,max_num)
+			original_node.flash(false)
 			original_node.animation.stop()
 			original_node.animation.play('Add')
 			state = STATES.checking
@@ -342,3 +353,7 @@ func _on_Reset_pressed():
 	pass # replace with function body
 
 
+func _on_MenuButton_pressed():
+	print('test')
+	$Camera2D.to_menu()
+	pass # Replace with function body.

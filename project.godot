@@ -15,9 +15,9 @@ _global_script_class_icons={
 
 [application]
 
-config/name="SquaresAndNumbers"
+config/name="Reshape"
 run/main_scene="res://Main.tscn"
-config/icon="res://Images/Icon.png"
+config/icon="res://Images/Icon2.0.png"
 
 [display]
 
@@ -37,5 +37,5 @@ left_click={
 
 [rendering]
 
-environment/default_clear_color=Color( 0.168627, 0.168627, 0.168627, 1 )
+environment/default_clear_color=Color( 0.941176, 0.886275, 0.784314, 1 )
 environment/default_environment="res://default_env.tres"

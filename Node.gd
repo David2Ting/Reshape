@@ -9,8 +9,9 @@ onready var animation = $AnimationPlayer
 onready var shadow = get_node('Holder/Shadow')
 onready var selector = get_node('Holder/Selector')
 onready var highlight = get_node('Holder/Highlight')
+onready var outline = get_node('Holder/Outline')
 var shapes = [null,"res://Images/Shapes/1.png",]
-
+var address = "res://Images/Shapes/3.0/"
 var selected = false
 var shape = 1
 var number = 1
@@ -20,7 +21,9 @@ var origin = Vector2()
 var hand_pos = Vector2()
 var index = Vector2()
 #var colours = ['fecd93','13a61d','0977ff','cb2bcd','09cfdb','8509db','fff600','6b4e00','ffffff']
-var colours = ['ffe6c9','92c196','a6cbff','f4c1f5','cf89ff']
+#var colours = ['ffe6c9','92c196','a6cbff','f4c1f5','cf89ff'] design 2.0
+var colours = ['cdb383', '92c676','97b7eb','e081eb','99fff5','c599ff']#design 3.0
+var outline_colours = ['bbab8e','97aa8c','a4c2c6','e1b1d6','ffffff']
 var sizes = [0.8,0.85,0.9,0.95,1,1.05]
 func _ready():
 	init(shape,number)
@@ -31,10 +34,14 @@ func init(shape_num,number_num):
 		shape_num = 9
 	if number_num >=9:
 		number_num = 9
-	shadow.set_texture(load("res://Images/Shapes/"+str(shape_num)+".png"))
-	selector.set_texture(load("res://Images/Shapes/"+str(shape_num)+".png"))
-	sprite.set_texture(load("res://Images/Shapes/"+str(shape_num)+".png"))
-	highlight.set_texture(load("res://Images/Shapes/"+str(shape_num)+".png"))
+	shadow.set_texture(load(address+str(shape_num)+".png"))
+	selector.set_texture(load(address+str(shape_num)+".png"))
+	sprite.set_texture(load(address+str(shape_num)+".png"))
+	sprite.set_modulate(colours[shape_num-1])
+#	outline.set_texture(load(address+str(shape_num)+".png"))
+#	outline.set("modulate",Color(outline_colours[shape_num-1]))
+#	outline.show()
+	highlight.set_texture(load(address+str(shape_num)+".png"))
 	label.set_text(str(number_num))
 	label.set('rect_scale',Vector2(sizes[number_num-1],sizes[number_num-1]))
 #	label.set('custom_colors/font_outline_modulate',colours[number_num-1])
@@ -84,17 +91,25 @@ func selected(boo):
 func flash(boo):
 	if boo:
 #		animation.play('Flashing')
-		highlight.set('modulate','0046ff')
+#		highlight.set('modulate','0046ff')
+#		sprite.set('self_modulate','fcf8eb')
+		highlight.show()
 	else:
+#		sprite.set('self_modulate','ffffff')
+		highlight.hide()
 #		animation.stop()
-		highlight.set('modulate','8f000000')
+#		highlight.set('modulate','8f000000')
 
 func merge(obj):
 	main.map[index.x][index.y]=null
 #	print(index.x, index.y)
-	set_modulate('b2ffffff') #7bffffff
+	highlight.show()
+#	sprite.set_modulate('b2ffffff') #7bffffff
+#	sprite.set_texture(load("res://Images/Shapes/2.0/Neutral/"+str(shape)+".png"))
+#	sprite.set('self_modulate','d8cdb9')
 	scale_tween.interpolate_property(self,'scale',Vector2(1,1),Vector2(0.8,0.8),0.07,Tween.TRANS_LINEAR,Tween.EASE_IN_OUT)
 	scale_tween.start()
+#	outline.hide()
 	yield(scale_tween,'tween_completed')
 	label.hide()
 	move_tween.interpolate_property(self,'global_position',get_global_position(),obj.get_global_position(),0.2,Tween.TRANS_EXPO,Tween.EASE_IN_OUT)
