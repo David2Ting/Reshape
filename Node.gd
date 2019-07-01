@@ -22,7 +22,7 @@ var hand_pos = Vector2()
 var index = Vector2()
 #var colours = ['fecd93','13a61d','0977ff','cb2bcd','09cfdb','8509db','fff600','6b4e00','ffffff']
 #var colours = ['ffe6c9','92c196','a6cbff','f4c1f5','cf89ff'] design 2.0
-var colours = ['cdb383', '92c676','97b7eb','e081eb','99fff5','c599ff']#design 3.0
+var colours = ['cdb383', '92c676','97b7eb','e081eb','99fff5','c599ff','fef07b','fe7b7b','58ffbd']#design 3.0
 var outline_colours = ['bbab8e','97aa8c','a4c2c6','e1b1d6','ffffff']
 var sizes = [0.8,0.85,0.9,0.95,1,1.05]
 func _ready():

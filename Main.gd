@@ -80,6 +80,7 @@ func _process(delta):
 						selected_card.flash(false)
 					for child in node_holder.get_children():
 						child.flash(false)
+					previous_check = null
 
 	elif swiping and pressed:
 		if hand.get_global_mouse_position().x-swipe_spot.x > 200:
@@ -334,7 +335,9 @@ func load_data():
 		load_file.close()
 	else:
 		load_file.open(USER_DIR, File.WRITE)
-		load_file.store_line(to_json(user_data))
+		load_file.store_line(to_json(blank_user_data))
+		load_board_state()
+		load_file.close()
 
 
 func change_selected_card(new_card):

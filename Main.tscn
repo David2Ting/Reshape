@@ -1,25 +1,18 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://Images/Fonts/Roboto/Roboto-Light.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Images/Fonts/Roboto/Roboto-Thin.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Images/Back.png" type="Texture" id=4]
-[ext_resource path="res://TileMapHolder.gd" type="Script" id=5]
-[ext_resource path="res://background.tres" type="TileSet" id=6]
-[ext_resource path="res://Hand.gd" type="Script" id=7]
-[ext_resource path="res://Images/Fonts/Roboto/Roboto-MediumItalic.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://Images/Fonts/Roboto/Roboto-Black.ttf" type="DynamicFontData" id=9]
-[ext_resource path="res://Camera2D.gd" type="Script" id=10]
-[ext_resource path="res://Images/MenuIcon.png" type="Texture" id=11]
+[ext_resource path="res://Images/Background.png" type="Texture" id=5]
+[ext_resource path="res://TileMapHolder.gd" type="Script" id=6]
+[ext_resource path="res://background.tres" type="TileSet" id=7]
+[ext_resource path="res://Hand.gd" type="Script" id=8]
+[ext_resource path="res://Images/Fonts/Roboto/Roboto-MediumItalic.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://Images/Fonts/Roboto/Roboto-Black.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://Camera2D.gd" type="Script" id=11]
 [ext_resource path="res://Menu.tscn" type="PackedScene" id=12]
-
-[sub_resource type="DynamicFontData" id=1]
-font_path = "res://Images/Fonts/Roboto/Roboto-Thin.ttf"
-
-[sub_resource type="DynamicFont" id=2]
-size = 40
-outline_color = Color( 0.611765, 0.611765, 0.611765, 1 )
-font_data = SubResource( 1 )
+[ext_resource path="res://Images/MenuIcon.png" type="Texture" id=13]
 
 [sub_resource type="DynamicFont" id=3]
 size = 120
@@ -59,13 +52,21 @@ tracks/0/keys = {
 "values": [ Color( 0.27451, 0.27451, 0.27451, 1 ), Color( 0.631373, 0.631373, 0.631373, 1 ), Color( 0.27451, 0.27451, 0.27451, 1 ) ]
 }
 
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://Images/Fonts/Roboto/Roboto-Thin.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 40
+outline_color = Color( 0.611765, 0.611765, 0.611765, 1 )
+font_data = SubResource( 1 )
+
 [sub_resource type="DynamicFont" id=8]
 size = 100
-font_data = ExtResource( 8 )
+font_data = ExtResource( 9 )
 
 [sub_resource type="DynamicFont" id=9]
 size = 60
-font_data = ExtResource( 9 )
+font_data = ExtResource( 10 )
 
 [sub_resource type="Animation" id=10]
 tracks/0/type = "value"
@@ -93,6 +94,10 @@ tracks/1/keys = {
 "values": [ 0.0 ]
 }
 
+[sub_resource type="DynamicFont" id=11]
+size = 50
+font_data = ExtResource( 2 )
+
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
 
@@ -102,30 +107,12 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="Header" type="Control" parent="Control"]
-editor/display_folded = true
 anchor_right = 1.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 600, 200 )
-mouse_filter = 2
+mouse_filter = 1
 size_flags_horizontal = 2
 size_flags_vertical = 2
-
-[node name="Reset" type="Button" parent="Control/Header"]
-self_modulate = Color( 1, 1, 1, 0 )
-margin_left = 14.12
-margin_top = 25.41
-margin_right = 164.12
-margin_bottom = 85.41
-
-[node name="Label" type="Label" parent="Control/Header/Reset"]
-margin_left = 12.5263
-margin_top = 1.31577
-margin_right = 162.526
-margin_bottom = 146.316
-custom_fonts/font = SubResource( 2 )
-custom_colors/font_color = Color( 0.611765, 0.611765, 0.611765, 1 )
-text = "Reset
-"
 
 [node name="Score" type="Label" parent="Control/Header"]
 anchor_left = 0.5
@@ -161,9 +148,9 @@ valign = 1
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = 126.0
-margin_top = 57.2632
+margin_top = 90.2631
 margin_right = 275.0
-margin_bottom = 117.263
+margin_bottom = 150.263
 custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0.464844, 0.464844, 0.464844, 1 )
 text = "0"
@@ -173,15 +160,38 @@ align = 1
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -164.438
-margin_top = 25.7212
+margin_top = 58.7211
 margin_right = -33.4376
-margin_bottom = 73.7212
+margin_bottom = 106.721
 custom_fonts/font = SubResource( 6 )
 custom_colors/font_color = Color( 0.611765, 0.611765, 0.611765, 1 )
 text = "Highscore"
 
 [node name="ScoreAnimationPlayer" type="AnimationPlayer" parent="Control/Header"]
 anims/Score = SubResource( 7 )
+
+[node name="Reset" type="Button" parent="Control/Header"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = 26.9735
+margin_top = 68.227
+margin_right = 168.973
+margin_bottom = 126.227
+
+[node name="Label" type="Label" parent="Control/Header/Reset"]
+margin_left = 17.76
+margin_top = 1.0
+margin_right = 167.76
+margin_bottom = 100.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.611765, 0.611765, 0.611765, 1 )
+text = "Reset
+"
+
+[node name="Reset_!" type="Button" parent="Control/Header"]
+visible = false
+margin_right = 150.0
+margin_bottom = 60.0001
+action_mode = 0
 
 [node name="Centre" type="Container" parent="Control"]
 anchor_top = 0.5
@@ -214,16 +224,22 @@ mouse_filter = 2
 [node name="Back" type="Sprite" parent="Control/Centre/Container"]
 visible = false
 modulate = Color( 0.265625, 0.265625, 0.265625, 1 )
-position = Vector2( 0, -240.786 )
-scale = Vector2( 1.8, 1.8 )
+position = Vector2( 74.5735, -266.966 )
+scale = Vector2( 2.94728, 2.20277 )
 texture = ExtResource( 4 )
+
+[node name="Background" type="Sprite" parent="Control/Centre/Container"]
+position = Vector2( -264.201, -399.976 )
+scale = Vector2( 0.591, 0.591 )
+texture = ExtResource( 5 )
+offset = Vector2( 440.666, 447.574 )
 
 [node name="TileMapHolder" type="Node2D" parent="Control/Centre/Container"]
 position = Vector2( -264.195, -400 )
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 
 [node name="TileMap" type="TileMap" parent="Control/Centre/Container/TileMapHolder"]
-tile_set = ExtResource( 6 )
+tile_set = ExtResource( 7 )
 cell_size = Vector2( 130, 130 )
 format = 1
 tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0 )
@@ -252,7 +268,7 @@ margin_bottom = -29.5
 mouse_filter = 2
 
 [node name="Hand" type="Node2D" parent="Control/Bottom/Container"]
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Tween" type="Tween" parent="Control/Bottom/Container/Hand"]
 
@@ -293,31 +309,38 @@ text = "Reset"
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 300, 500 )
+anchor_mode = 0
 current = true
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 
 [node name="Tween" type="Tween" parent="Camera2D"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Shake = SubResource( 10 )
 
-[node name="MenuButton" type="TextureButton" parent="."]
-modulate = Color( 1, 0.960784, 0.898039, 1 )
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -40.8341
-margin_top = 31.7709
-margin_right = 74.1659
-margin_bottom = 81.7709
-rect_scale = Vector2( 0.7, 0.7 )
-texture_normal = ExtResource( 11 )
-
 [node name="Menu" parent="." instance=ExtResource( 12 )]
 margin_top = -1000.0
 margin_bottom = -1000.0
 
+[node name="MenuButton" type="TextureButton" parent="."]
+modulate = Color( 1, 0.960784, 0.898039, 1 )
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -55.8341
+margin_top = 10.7709
+margin_right = 59.1659
+margin_bottom = 60.7709
+texture_normal = ExtResource( 13 )
+
+[node name="Label" type="Label" parent="MenuButton"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 11 )
+text = "Menu"
+
 [connection signal="pressed" from="Control/Header/Reset" to="." method="_on_Reset_pressed"]
+[connection signal="pressed" from="Control/Header/Reset_!" to="." method="_on_Reset_pressed"]
 [connection signal="timeout" from="CheckTimer" to="." method="_on_CheckTimer_timeout"]
 [connection signal="timeout" from="CheckTimerFlash" to="." method="_on_CheckTimerFlash_timeout"]
 [connection signal="pressed" from="GameOver/GameOver/GameReset" to="." method="_on_Reset_pressed"]

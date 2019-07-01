@@ -35,6 +35,10 @@ left_click={
  ]
 }
 
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
 [rendering]
 
 environment/default_clear_color=Color( 0.941176, 0.886275, 0.784314, 1 )

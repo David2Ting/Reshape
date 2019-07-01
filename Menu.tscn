@@ -1,50 +1,101 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Menu.gd" type="Script" id=1]
 [ext_resource path="res://Images/Fonts/Roboto/Roboto-Light.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://MapContainer.gd" type="Script" id=3]
+[ext_resource path="res://Background.png" type="Texture" id=4]
+[ext_resource path="res://Images/Fonts/Roboto/Roboto-BoldCondensedItalic.ttf" type="DynamicFontData" id=5]
 
 [sub_resource type="DynamicFont" id=1]
-size = 60
+size = 50
+outline_color = Color( 0.611765, 0.611765, 0.611765, 1 )
 font_data = ExtResource( 2 )
+
+[sub_resource type="CanvasItemMaterial" id=2]
+blend_mode = 1
+
+[sub_resource type="DynamicFont" id=3]
+size = 40
+font_data = ExtResource( 5 )
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource( 1 )
 
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 
 [node name="Header" type="Control" parent="Control"]
 anchor_right = 1.0
+mouse_filter = 2
 
 [node name="TextureButton" type="Button" parent="Control/Header"]
 self_modulate = Color( 1, 1, 1, 0 )
-margin_left = 22.8551
-margin_top = 19.3389
-margin_right = 157.855
-margin_bottom = 87.3389
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -84.4999
+margin_right = 50.4999
+margin_bottom = 68.0
+rect_pivot_offset = Vector2( 71.3131, -0.202028 )
 
 [node name="Label" type="Label" parent="Control/Header/TextureButton"]
-margin_right = 40.0
-margin_bottom = 14.0
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -64.5
+margin_right = 64.5
+margin_bottom = 71.0
 custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 0.960784, 0.898039, 1 )
 text = "Back"
+align = 1
 
 [node name="Mid" type="Control" parent="Control"]
+editor/display_folded = true
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
+mouse_filter = 2
 
 [node name="MapContainer" type="Node2D" parent="Control/Mid"]
 position = Vector2( 100, 0 )
 scale = Vector2( 0.7, 0.7 )
 script = ExtResource( 3 )
 
+[node name="Sprite" type="Sprite" parent="Control/Mid/MapContainer"]
+position = Vector2( 260.974, -124.954 )
+scale = Vector2( 0.59, 0.59 )
+z_index = -1
+z_as_relative = false
+texture = ExtResource( 4 )
+
+[node name="Sprite2" type="Sprite" parent="Control/Mid/MapContainer"]
+modulate = Color( 0.133333, 0.309804, 1, 0.294118 )
+material = SubResource( 2 )
+position = Vector2( 260.974, -124.954 )
+scale = Vector2( 0.59, 0.59 )
+z_index = -1
+z_as_relative = false
+texture = ExtResource( 4 )
+
 [node name="HighScore" type="TileMap" parent="Control/Mid/MapContainer"]
+position = Vector2( 0, -387.812 )
+z_as_relative = false
 cell_size = Vector2( 130, 130 )
 format = 1
+
+[node name="HighScoreLabel" type="Label" parent="Control/Mid"]
+margin_left = 63.0
+margin_top = -386.0
+margin_right = 505.0
+margin_bottom = -236.0
+custom_fonts/font = SubResource( 3 )
+text = "Highscore
+0
+"
+align = 1
 
 [connection signal="pressed" from="Control/Header/TextureButton" to="." method="_on_TextureButton_pressed"]
