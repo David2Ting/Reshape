@@ -14,30 +14,30 @@
 [ext_resource path="res://Menu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Images/MenuIcon.png" type="Texture" id=13]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=1]
 size = 120
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 2 )
 
+[sub_resource type="DynamicFont" id=2]
+size = 30
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 30
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 3 )
+
 [sub_resource type="DynamicFont" id=4]
-size = 30
-use_mipmaps = true
-use_filter = true
-font_data = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=5]
-size = 30
-use_mipmaps = true
-use_filter = true
-font_data = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=6]
 size = 30
 outline_color = Color( 0.827451, 0.827451, 0.827451, 1 )
 font_data = ExtResource( 3 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Score:custom_colors/font_color")
@@ -52,13 +52,13 @@ tracks/0/keys = {
 "values": [ Color( 0.27451, 0.27451, 0.27451, 1 ), Color( 0.631373, 0.631373, 0.631373, 1 ), Color( 0.27451, 0.27451, 0.27451, 1 ) ]
 }
 
-[sub_resource type="DynamicFontData" id=1]
+[sub_resource type="DynamicFontData" id=6]
 font_path = "res://Images/Fonts/Roboto/Roboto-Thin.ttf"
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=7]
 size = 40
 outline_color = Color( 0.611765, 0.611765, 0.611765, 1 )
-font_data = SubResource( 1 )
+font_data = SubResource( 6 )
 
 [sub_resource type="DynamicFont" id=8]
 size = 100
@@ -123,7 +123,7 @@ margin_left = -187.0
 margin_top = -40.0
 margin_right = 187.0
 margin_bottom = 137.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0.27451, 0.27451, 0.27451, 1 )
 text = "0"
 align = 1
@@ -138,7 +138,7 @@ margin_left = -52.0
 margin_top = 95.2632
 margin_right = 54.0
 margin_bottom = 131.263
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0.476563, 0.476563, 0.476563, 1 )
 text = "0"
 align = 1
@@ -151,7 +151,7 @@ margin_left = 126.0
 margin_top = 90.2631
 margin_right = 275.0
 margin_bottom = 150.263
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.464844, 0.464844, 0.464844, 1 )
 text = "0"
 align = 1
@@ -163,12 +163,12 @@ margin_left = -164.438
 margin_top = 58.7211
 margin_right = -33.4376
 margin_bottom = 106.721
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.611765, 0.611765, 0.611765, 1 )
 text = "Highscore"
 
 [node name="ScoreAnimationPlayer" type="AnimationPlayer" parent="Control/Header"]
-anims/Score = SubResource( 7 )
+anims/Score = SubResource( 5 )
 
 [node name="Reset" type="Button" parent="Control/Header"]
 self_modulate = Color( 1, 1, 1, 0 )
@@ -182,7 +182,7 @@ margin_left = 17.76
 margin_top = 1.0
 margin_right = 167.76
 margin_bottom = 100.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 0.611765, 0.611765, 0.611765, 1 )
 text = "Reset
 "
@@ -229,7 +229,7 @@ scale = Vector2( 2.94728, 2.20277 )
 texture = ExtResource( 4 )
 
 [node name="Background" type="Sprite" parent="Control/Centre/Container"]
-position = Vector2( -264.201, -399.976 )
+position = Vector2( -260.201, -399.976 )
 scale = Vector2( 0.591, 0.591 )
 texture = ExtResource( 5 )
 offset = Vector2( 440.666, 447.574 )
@@ -239,6 +239,7 @@ position = Vector2( -264.195, -400 )
 script = ExtResource( 6 )
 
 [node name="TileMap" type="TileMap" parent="Control/Centre/Container/TileMapHolder"]
+position = Vector2( 4, 0 )
 tile_set = ExtResource( 7 )
 cell_size = Vector2( 130, 130 )
 format = 1
@@ -309,6 +310,7 @@ text = "Reset"
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 0, -1226.1 )
 anchor_mode = 0
 current = true
 script = ExtResource( 11 )
@@ -319,12 +321,11 @@ script = ExtResource( 11 )
 anims/Shake = SubResource( 10 )
 
 [node name="Menu" parent="." instance=ExtResource( 12 )]
-margin_top = -1000.0
-margin_bottom = -1000.0
+margin_top = -1226.1
+margin_bottom = -1226.1
 
 [node name="MenuButton" type="TextureButton" parent="."]
 modulate = Color( 1, 0.960784, 0.898039, 1 )
-self_modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -55.8341
@@ -334,8 +335,11 @@ margin_bottom = 60.7709
 texture_normal = ExtResource( 13 )
 
 [node name="Label" type="Label" parent="MenuButton"]
-margin_right = 40.0
-margin_bottom = 14.0
+visible = false
+margin_left = -6.4707
+margin_top = -9.19517
+margin_right = 118.529
+margin_bottom = 50.8048
 custom_fonts/font = SubResource( 11 )
 text = "Menu"
 

@@ -1,22 +1,32 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Menu.gd" type="Script" id=1]
-[ext_resource path="res://Images/Fonts/Roboto/Roboto-Light.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://MapContainer.gd" type="Script" id=3]
-[ext_resource path="res://Background.png" type="Texture" id=4]
-[ext_resource path="res://Images/Fonts/Roboto/Roboto-BoldCondensedItalic.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Images/Return.png" type="Texture" id=2]
+[ext_resource path="res://Images/Fonts/Roboto/Roboto-Light.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://MapContainer.gd" type="Script" id=4]
+[ext_resource path="res://Background.png" type="Texture" id=5]
+[ext_resource path="res://Images/Fonts/Roboto/Roboto-BoldCondensedItalic.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Menu_button.gd" type="Script" id=7]
+[ext_resource path="res://Images/Ui/On.png" type="Texture" id=8]
+[ext_resource path="res://Images/Ui/Tutorial_up.png" type="Texture" id=9]
+[ext_resource path="res://Images/Ui/Tutorial_down.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
 outline_color = Color( 0.611765, 0.611765, 0.611765, 1 )
-font_data = ExtResource( 2 )
+font_data = ExtResource( 3 )
 
 [sub_resource type="CanvasItemMaterial" id=2]
 blend_mode = 1
 
 [sub_resource type="DynamicFont" id=3]
 size = 40
-font_data = ExtResource( 5 )
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 70
+outline_color = Color( 0.615686, 0.615686, 0.615686, 1 )
+font_data = ExtResource( 3 )
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -33,44 +43,50 @@ mouse_filter = 2
 anchor_right = 1.0
 mouse_filter = 2
 
-[node name="TextureButton" type="Button" parent="Control/Header"]
-self_modulate = Color( 1, 1, 1, 0 )
+[node name="TextureButton" type="TextureButton" parent="Control/Header"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -84.4999
-margin_right = 50.4999
-margin_bottom = 68.0
+margin_left = -91.0
+margin_top = -12.0
+margin_right = 109.0
+margin_bottom = 188.0
+rect_scale = Vector2( 0.6, 0.6 )
 rect_pivot_offset = Vector2( 71.3131, -0.202028 )
+texture_normal = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="Control/Header/TextureButton"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -64.5
-margin_right = 64.5
-margin_bottom = 71.0
+margin_left = -49.4999
+margin_top = 0.327759
+margin_right = 79.5001
+margin_bottom = 60.3278
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 0.960784, 0.898039, 1 )
 text = "Back"
 align = 1
 
 [node name="Mid" type="Control" parent="Control"]
-editor/display_folded = true
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
+margin_left = -300.0
+margin_right = 300.0
 mouse_filter = 2
 
 [node name="MapContainer" type="Node2D" parent="Control/Mid"]
-position = Vector2( 100, 0 )
+position = Vector2( 117.945, -25.7495 )
 scale = Vector2( 0.7, 0.7 )
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="Control/Mid/MapContainer"]
 position = Vector2( 260.974, -124.954 )
 scale = Vector2( 0.59, 0.59 )
 z_index = -1
 z_as_relative = false
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Sprite2" type="Sprite" parent="Control/Mid/MapContainer"]
 modulate = Color( 0.133333, 0.309804, 1, 0.294118 )
@@ -79,7 +95,7 @@ position = Vector2( 260.974, -124.954 )
 scale = Vector2( 0.59, 0.59 )
 z_index = -1
 z_as_relative = false
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="HighScore" type="TileMap" parent="Control/Mid/MapContainer"]
 position = Vector2( 0, -387.812 )
@@ -88,14 +104,94 @@ cell_size = Vector2( 130, 130 )
 format = 1
 
 [node name="HighScoreLabel" type="Label" parent="Control/Mid"]
-margin_left = 63.0
-margin_top = -386.0
-margin_right = 505.0
-margin_bottom = -236.0
+margin_left = 78.8112
+margin_top = -411.0
+margin_right = 520.811
+margin_bottom = -261.0
 custom_fonts/font = SubResource( 3 )
 text = "Highscore
 0
 "
 align = 1
 
+[node name="Options" type="Control" parent="Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Music_button" type="Button" parent="Control/Options"]
+margin_left = 361.228
+margin_top = -380.869
+margin_right = 473.228
+margin_bottom = -321.869
+script = ExtResource( 7 )
+
+[node name="Sprite" type="Sprite" parent="Control/Options/Music_button"]
+position = Vector2( 56.798, 29.6849 )
+scale = Vector2( 0.55, 0.55 )
+texture = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="Control/Options/Music_button"]
+margin_left = -233.13
+margin_top = -13.9302
+margin_right = -46.1297
+margin_bottom = 69.0698
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.494118, 0.494118, 0.494118, 1 )
+text = "Music"
+
+[node name="Music_button2" type="Button" parent="Control/Options"]
+margin_left = 361.228
+margin_top = -300.276
+margin_right = 473.228
+margin_bottom = -241.276
+script = ExtResource( 7 )
+
+[node name="Sprite" type="Sprite" parent="Control/Options/Music_button2"]
+position = Vector2( 56.798, 29.6849 )
+scale = Vector2( 0.55, 0.55 )
+texture = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="Control/Options/Music_button2"]
+margin_left = -233.13
+margin_top = -13.9302
+margin_right = -46.1297
+margin_bottom = 69.0698
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.494118, 0.494118, 0.494118, 1 )
+text = "Sound"
+
+[node name="Music_button3" type="Button" parent="Control/Options"]
+margin_left = 361.228
+margin_top = -217.517
+margin_right = 473.228
+margin_bottom = -158.517
+script = ExtResource( 7 )
+
+[node name="Sprite" type="Sprite" parent="Control/Options/Music_button3"]
+position = Vector2( 56.798, 29.6849 )
+scale = Vector2( 0.55, 0.55 )
+texture = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="Control/Options/Music_button3"]
+margin_left = -233.13
+margin_top = -13.9302
+margin_right = -46.1297
+margin_bottom = 69.0698
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.494118, 0.494118, 0.494118, 1 )
+text = "Mode"
+
+[node name="TextureButton" type="TextureButton" parent="Control/Options"]
+margin_left = 85.9331
+margin_top = -137.168
+margin_right = 513.933
+margin_bottom = -22.1679
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+
 [connection signal="pressed" from="Control/Header/TextureButton" to="." method="_on_TextureButton_pressed"]
+[connection signal="pressed" from="Control/Options/Music_button" to="Control/Options/Music_button" method="_on_Music_button_pressed"]
+[connection signal="pressed" from="Control/Options/Music_button2" to="Control/Options/Music_button2" method="_on_Music_button_pressed"]
+[connection signal="pressed" from="Control/Options/Music_button3" to="Control/Options/Music_button3" method="_on_Music_button_pressed"]
