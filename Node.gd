@@ -10,6 +10,8 @@ onready var shadow = get_node('Holder/Shadow')
 onready var selector = get_node('Holder/Selector')
 onready var highlight = get_node('Holder/Highlight')
 onready var outline = get_node('Holder/Outline')
+onready var commentary = $CommentPlayer
+onready var commentary_label = $CommentaryHolder/Commentary
 var shapes = [null,"res://Images/Shapes/1.png",]
 var address = "res://Images/Shapes/3.0/"
 var selected = false
@@ -25,6 +27,11 @@ var index = Vector2()
 var colours = ['cdb383', '92c676','97b7eb','e081eb','99fff5','c599ff','fef07b','fe7b7b','58ffbd']#design 3.0
 var outline_colours = ['bbab8e','97aa8c','a4c2c6','e1b1d6','ffffff']
 var sizes = [0.8,0.85,0.9,0.95,1,1.05]
+
+var double = ['Nice','Good Job','Sweet','Amazing'] 
+var triple = ['Awesome','Combo!','Super','Supurb']
+var super = ['Extraordinary!','Legendary!','Unbelievable','Spectacular!']
+var comments = [double,triple,super]
 func _ready():
 	init(shape,number)
 	pass
@@ -55,6 +62,12 @@ func init(shape_num,number_num):
 func move_to(pos):
 	move_tween.interpolate_property(self,'global_position',get_global_position(),pos,0.04,Tween.TRANS_QUAD,Tween.EASE_IN_OUT)
 	move_tween.start()
+
+func comment(amount):
+	if amount>=comments.size():
+		amount=comments.size()-1
+	commentary_label.set_text(comments[amount][randi()%comments[amount].size()])
+	commentary.play('Double')
 
 func placing(boo):
 	if boo:

@@ -145,11 +145,11 @@ align = 1
 valign = 1
 
 [node name="HighScoreLabel" type="Label" parent="Control/Header"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = 126.0
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -174.0
 margin_top = 90.2631
-margin_right = 275.0
+margin_right = -25.0
 margin_bottom = 150.263
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.464844, 0.464844, 0.464844, 1 )
@@ -252,8 +252,8 @@ position = Vector2( -300, -656 )
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -199.0
-margin_bottom = 1.0
+margin_top = -200.315
+margin_bottom = -0.31543
 rect_min_size = Vector2( 600, 200 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -310,7 +310,6 @@ text = "Reset"
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 0, -1226.1 )
 anchor_mode = 0
 current = true
 script = ExtResource( 11 )
@@ -342,7 +341,6 @@ margin_right = 118.529
 margin_bottom = 50.8048
 custom_fonts/font = SubResource( 11 )
 text = "Menu"
-
 [connection signal="pressed" from="Control/Header/Reset" to="." method="_on_Reset_pressed"]
 [connection signal="pressed" from="Control/Header/Reset_!" to="." method="_on_Reset_pressed"]
 [connection signal="timeout" from="CheckTimer" to="." method="_on_CheckTimer_timeout"]

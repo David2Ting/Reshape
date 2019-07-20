@@ -33,3 +33,8 @@ func _on_TextureButton_pressed():
 	pass # Replace with function body.
 
 
+
+
+func _on_TutorialButton_pressed():
+	main.to_tutorial()
+	pass # Replace with function body.

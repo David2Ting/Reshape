@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Node.gd" type="Script" id=1]
 [ext_resource path="res://Images/Shapes/3.0/1.png" type="Texture" id=2]
 [ext_resource path="res://Images/Shapes/1.png" type="Texture" id=3]
 [ext_resource path="res://Images/Shapes/3.0/Test.png" type="Texture" id=4]
 [ext_resource path="res://Images/Fonts/Roboto/Roboto-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Images/Fonts/Roboto/Roboto-Condensed.ttf" type="DynamicFontData" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 80
@@ -12,10 +13,10 @@ use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 5 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 69.3727, 68.5378 )
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("Holder/Sprite:scale")
@@ -42,8 +43,7 @@ tracks/1/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "Flashing"
+[sub_resource type="Animation" id=5]
 length = 1.4
 loop = true
 tracks/0/type = "value"
@@ -58,6 +58,76 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0.560784 ), Color( 0, 0, 0, 0.560784 ) ]
 }
+
+[sub_resource type="Animation" id=6]
+resource_name = "Double"
+length = 1.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("CommentaryHolder/Commentary:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.35, 1.5 ),
+"transitions": PoolRealArray( 2.82842, 3.03143, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CommentaryHolder/Commentary:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.35, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -124.04, -54.0995 ), Vector2( -124.528, -132 ), Vector2( -124.006, -144.64 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CommentaryHolder/Commentary:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 126, 53 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CommentaryHolder/Commentary:rect_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.35 ),
+"transitions": PoolRealArray( 2.82843, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.4, 1.4 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CommentaryHolder/Commentary:custom_fonts/font:size")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 45 ]
+}
+
+[sub_resource type="DynamicFont" id=2]
+size = 45
+use_filter = true
+font_data = ExtResource( 6 )
 
 [node name="Node" type="Area2D"]
 scale = Vector2( 0.9, 0.9 )
@@ -108,14 +178,34 @@ valign = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="MoveTween" type="Tween" parent="."]
 
 [node name="ScaleTween" type="Tween" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Add = SubResource( 3 )
-anims/Flashing = SubResource( 4 )
+anims/Add = SubResource( 4 )
+anims/Flashing = SubResource( 5 )
 
+[node name="CommentPlayer" type="AnimationPlayer" parent="."]
+anims/Double = SubResource( 6 )
+
+[node name="CommentaryHolder" type="Node2D" parent="."]
+z_index = 2
+z_as_relative = false
+
+[node name="Commentary" type="Label" parent="CommentaryHolder"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = -124.04
+margin_top = -54.0995
+margin_right = 125.96
+margin_bottom = -1.09952
+grow_horizontal = 2
+grow_vertical = 2
+rect_pivot_offset = Vector2( 125.398, 26.5124 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.352941, 0.247059, 0.356863, 1 )
+text = "Supurb"
+align = 1
 [connection signal="input_event" from="." to="." method="_on_Node_input_event"]

@@ -43,13 +43,23 @@ var select_assist = false
 enum STATES{checking, placed}
 var state = STATES.checking
 var previous_check = Vector2(-1,-1)
+
+var target_node = [0,0]
+signal target_node_completed
+signal target_node_failed
+var tutorial = false
+var last_merged_node #from merge
 func _ready():
-	randomize()
-	load_data()
-	menu.load_board_state()
+	start()
+
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
 	pass
+
+func start():
+	randomize()
+	load_data()
+	menu.load_board_state()
 
 func _process(delta):
 	if pressed and selected_card:
@@ -124,7 +134,7 @@ func _input(event):
 #			selected_card = null
 
 
-func check(node,index,type=null, shape_nodes=null, number_nodes=null):
+func check(node,index,type=null, shape_nodes=null, number_nodes=null, last_node = null, times = 0):
 	if !type or type=='Flash':
 		if !type:
 #			check_timer.start()
@@ -142,10 +152,10 @@ func check(node,index,type=null, shape_nodes=null, number_nodes=null):
 				var check_node = map[check.x][check.y]
 				if check_node.shape == check_shape_num:
 					shape_nodes.append(check_node)
-					shape_nodes = check(check_node,check,'Shape', shape_nodes, number_nodes)
+					shape_nodes = check(check_node,check,'Shape', shape_nodes, number_nodes, last_node, times)
 				if check_node.number == check_number_num:
 					number_nodes.append(check_node)
-					number_nodes = check(check_node,check,'Number',shape_nodes, number_nodes) 
+					number_nodes = check(check_node,check,'Number',shape_nodes, number_nodes, last_node, times) 
 		if(type=="Flash"):
 			if selected_card:
 				selected_card.flash(false)
@@ -154,8 +164,7 @@ func check(node,index,type=null, shape_nodes=null, number_nodes=null):
 			check_results("Flash",shape_nodes,number_nodes,original_node)
 		else:
 			check_timer.start()
-			yield(check_timer,"timeout")
-			check_results("Merge", shape_nodes, number_nodes, original_node)
+			check_results("Merge", shape_nodes, number_nodes, original_node, last_node, times)
 		
 	else:
 		if type == 'Shape':
@@ -165,7 +174,7 @@ func check(node,index,type=null, shape_nodes=null, number_nodes=null):
 					var check_node = map[check.x][check.y]
 					if check_node.shape == check_shape_num and shape_nodes.find(check_node)==-1:
 						shape_nodes.append(check_node)
-						check(check_node,check,'Shape', shape_nodes, number_nodes)
+						check(check_node,check,'Shape', shape_nodes, number_nodes, last_node, times)
 			return shape_nodes
 		elif type == 'Number':
 			for direction in adjacency_checks:
@@ -174,11 +183,11 @@ func check(node,index,type=null, shape_nodes=null, number_nodes=null):
 					var check_node = map[check.x][check.y]
 					if check_node.number == check_number_num and number_nodes.find(check_node)==-1:
 						number_nodes.append(check_node)
-						check(check_node,check,'Number',shape_nodes, number_nodes)
+						check(check_node,check,'Number',shape_nodes, number_nodes, last_node, times)
 			return number_nodes
 	pass
 
-func check_results(type, shape_nodes, number_nodes, original_node):
+func check_results(type, shape_nodes, number_nodes, original_node, last_node = null, times=0):
 	var max_shape = 0
 	var max_num = 0
 	var merge = false
@@ -198,6 +207,7 @@ func check_results(type, shape_nodes, number_nodes, original_node):
 			for node in nodes:
 				node.flash(true)
 		else:
+			yield(check_timer,"timeout")
 			for node in nodes:
 				if node.shape > max_shape:
 					max_shape = node.shape
@@ -217,19 +227,35 @@ func check_results(type, shape_nodes, number_nodes, original_node):
 			original_node.number = int(max_num)
 			yield(merging_node.move_tween,'tween_completed')
 			original_node.init(max_shape,max_num)
+			last_merged_node = original_node
+			if [max_shape,max_num] == target_node and tutorial:
+				original_node.comment(0)
+				emit_signal('target_node_completed')
 			original_node.flash(false)
 			original_node.animation.stop()
 			original_node.animation.play('Add')
+
 			state = STATES.checking
-			check(original_node,original_node.index,null)
+			check(original_node,original_node.index,null,null,null,original_node,times+1)
 			if max_shape > highest_shape:
 				highest_shape = max_shape
 			elif max_num > highest_number:
 				highest_number = max_num
 			hand.check_goal_num()
 			change_score(check_board_value())
-			save_board_state()
+			if !tutorial:
+				save_board_state()
 	else:
+		if tutorial and type == "Merge":
+			var empty = true
+			print(hand.cards)
+			for card in hand.cards:
+				if card!=null:
+					empty = false
+				if empty:
+					emit_signal('target_node_failed')
+		if times > 1:
+			original_node.comment(times-2)
 		for x in range(map.size()):
 			for y in range(map[x].size()):
 				if !map[x][y]:
@@ -339,11 +365,22 @@ func load_data():
 		load_board_state()
 		load_file.close()
 
+func to_tutorial():
+	tween.interpolate_property($Menu,'modulate',Color(1,1,1,1),Color(1,1,1,0),1,Tween.TRANS_LINEAR,Tween.EASE_IN_OUT)
+	tween.start()
+	yield(tween,'tween_completed')
+	get_tree().change_scene("res://Tutorial.tscn")
+	
+func to_menu():
+	tween.interpolate_property($Control,'modulate',Color(1,1,1,1),Color(1,1,1,0),1,Tween.TRANS_LINEAR,Tween.EASE_IN_OUT)
+	tween.start()
+	yield(tween,'tween_completed')
+	get_tree().change_scene("res://Main.tscn")
 
 func change_selected_card(new_card):
 	selected_card = new_card
 	for card in hand.cards:
-		if card != new_card:
+		if card and card != new_card:
 			card.selected(false)
 	
 

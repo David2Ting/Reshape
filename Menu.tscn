@@ -121,9 +121,13 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="Music_button" type="Button" parent="Control/Options"]
-margin_left = 361.228
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 61.228
 margin_top = -380.869
-margin_right = 473.228
+margin_right = 173.228
 margin_bottom = -321.869
 script = ExtResource( 7 )
 
@@ -142,9 +146,13 @@ custom_colors/font_color = Color( 0.494118, 0.494118, 0.494118, 1 )
 text = "Music"
 
 [node name="Music_button2" type="Button" parent="Control/Options"]
-margin_left = 361.228
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 61.228
 margin_top = -300.276
-margin_right = 473.228
+margin_right = 173.228
 margin_bottom = -241.276
 script = ExtResource( 7 )
 
@@ -163,9 +171,13 @@ custom_colors/font_color = Color( 0.494118, 0.494118, 0.494118, 1 )
 text = "Sound"
 
 [node name="Music_button3" type="Button" parent="Control/Options"]
-margin_left = 361.228
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 61.228
 margin_top = -217.517
-margin_right = 473.228
+margin_right = 173.228
 margin_bottom = -158.517
 script = ExtResource( 7 )
 
@@ -183,15 +195,19 @@ custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.494118, 0.494118, 0.494118, 1 )
 text = "Mode"
 
-[node name="TextureButton" type="TextureButton" parent="Control/Options"]
-margin_left = 85.9331
+[node name="TutorialButton" type="TextureButton" parent="Control/Options"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -214.067
 margin_top = -137.168
-margin_right = 513.933
+margin_right = 213.933
 margin_bottom = -22.1679
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
-
 [connection signal="pressed" from="Control/Header/TextureButton" to="." method="_on_TextureButton_pressed"]
 [connection signal="pressed" from="Control/Options/Music_button" to="Control/Options/Music_button" method="_on_Music_button_pressed"]
 [connection signal="pressed" from="Control/Options/Music_button2" to="Control/Options/Music_button2" method="_on_Music_button_pressed"]
 [connection signal="pressed" from="Control/Options/Music_button3" to="Control/Options/Music_button3" method="_on_Music_button_pressed"]
+[connection signal="pressed" from="Control/Options/TutorialButton" to="." method="_on_TutorialButton_pressed"]
