@@ -30,7 +30,6 @@ func start_tutorial():
 	tutorial_status+=1
 	change_text(["Placing 3 or more of the same shape next to each other merges them together", "Place the two circles adjacent to the circle you just placed on the board"])
 	yield(self,"text_change_completed")
-	tutorial_status = 6
 	hand.draw_specific(0,1,2)
 	hand.draw_specific(2,1,2)
 	target_node = [2,2]
@@ -63,6 +62,7 @@ func start_tutorial():
 	yield(self,"target_node_completed")
 	change_text(["Merging more than three of a type will still only upgrade it once","Merge all these nodes together into one"])
 	yield(self,"text_change_completed")
+	tutorial_status = 6
 	map[last_merged_node.index.x][last_merged_node.index.y]=null
 	last_merged_node.queue_free()
 	add_node(Vector2(1,0),2,4)
@@ -72,6 +72,7 @@ func start_tutorial():
 	add_node(Vector2(2,2),5,2)
 	add_node(Vector2(3,2),5,1)
 	hand.draw_specific(1,5,4)
+	tutorial_status = 7
 	target_node = [6,5]
 	yield(self,"target_node_completed")
 	change_text(["Well done! Tutorial Complete!","The aim of the game is to try and make a number 9 decagon","Try to get as high a score as you can before you run out of board space","Goodluck!",""])

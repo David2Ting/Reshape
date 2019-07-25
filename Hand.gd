@@ -33,6 +33,18 @@ func draw(i,start=null):
 	tween.interpolate_property(node_instance,'position',node_instance.get_position(),Vector2(spawn_points[i],0),0.5,Tween.TRANS_QUAD,Tween.EASE_IN_OUT)
 	tween.start()
 
+func disappear():
+	for card in cards:
+		if card!=null:
+			card.state = card.STATES.board
+			tween.interpolate_property(card,'position',card.get_position(),Vector2(card.get_position().x,300),0.5,Tween.TRANS_QUAD,Tween.EASE_IN_OUT)
+	tween.start()
+	yield(tween,'tween_completed')
+	for card in cards:
+		if card!=null:
+			card.queue_free()
+	cards = [null,null,null]
+
 func draw_specific(i,shape,number):
 	var node_instance = node_pkd.instance()
 	node_instance.set_position(Vector2(spawn_points[i],300))
@@ -46,7 +58,7 @@ func draw_specific(i,shape,number):
 
 func random_num():
 	var card_shape = -1
-	var card_number = -1		
+	var card_number = -1
 	
 	var black_list_shape = []
 	var black_list_number = []
@@ -55,15 +67,22 @@ func random_num():
 		black_list_shape.append(previous_shape)
 	if previous_number_count > 1:
 		black_list_number.append(previous_number)
-
 	var shape_num
 	var number_num
 	while(!shape_num or (black_list_shape.find(shape_num)>-1 or black_list_number.find(number_num)>-1)):
 		var rand_goal_num = round(rand_range(goal_num-1,goal_num+1)) 
-		shape_num = randi()%int((min(int(rand_goal_num-1),int(main.highest_shape-1))))+1
-		number_num = int(clamp(rand_goal_num-shape_num,1,main.highest_number-1))
-		print(shape_num)
-		print(black_list_shape.find(1))
+		print('rand_goal'+str(rand_goal_num))
+		var times = 3
+		shape_num = 0
+		number_num = 0
+		for i in range(times):
+			var new_shape_num = randi()%int((min(int(rand_goal_num-1),int(main.highest_shape-1))))+1
+			shape_num += new_shape_num
+			print('shape_num '+str(shape_num))
+			number_num += int(clamp((rand_goal_num-new_shape_num),1,main.highest_number-1))
+			print('number_num '+str(number_num))
+		shape_num = round(shape_num/float(times))
+		number_num = round(number_num/float(times))
 	if previous_shape == shape_num:
 		previous_shape_count+=1
 	else:
@@ -74,9 +93,11 @@ func random_num():
 	else:
 		previous_number = number_num
 		previous_number_count = 1
+	print(number_num)
 	return Vector2(shape_num,number_num)
 
 func check_goal_num():
-	var new_goal_num = (main.highest_shape+main.highest_number)/3
+	var new_goal_num = round((main.highest_shape+main.highest_number)/2.4)
 	if new_goal_num > goal_num:
 		goal_num = new_goal_num
+	print('goal! '+str(goal_num))

@@ -29,10 +29,13 @@ func place(node,index=null, start=false):
 		node.index = index
 		node.state = node.STATES.board
 		main.state = main.STATES.placed
-		main.check(node,Vector2(index.x,index.y))
+		if node.hand_pos:
+			hand.cards[node.hand_pos]=null
 		if !start:
 			hand.draw(node.hand_pos)
 			main.save_board_state()
+		main.check(node,Vector2(index.x,index.y))
+
 		main.change_score(main.check_board_value())
 	else:
 		node.move_to(node.origin)

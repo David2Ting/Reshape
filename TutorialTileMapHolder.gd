@@ -17,7 +17,7 @@ func place(node,index=null, start=false):
 	if index==null:
 		index = tile_map.world_to_map(to_local(node.get_global_position()))
 	node.placing(false)
-	if tile_map.get_cellv(index)>-1 and !main.map[index.x][index.y] and (main.tutorial_status==0 or main.tutorial_status==6 or check_adjacent(index)):
+	if tile_map.get_cellv(index)>-1 and !main.map[index.x][index.y] and (main.tutorial_status==0 or main.tutorial_status==6 or (main.tutorial_status==7 and index==Vector2(1,2)) or (main.tutorial_status!=7 and check_adjacent(index))):
 		node.get_parent().remove_child(node)
 		node_holder.add_child(node)
 		node.set_global_position(tile_map.map_to_world(index)+get_global_position()+tile_map.get_cell_size()/2)

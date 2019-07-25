@@ -20,13 +20,13 @@ var number = 1
 enum STATES{hand,board,placing}
 var state = STATES.hand
 var origin = Vector2()
-var hand_pos = Vector2()
+var hand_pos = null
 var index = Vector2()
 #var colours = ['fecd93','13a61d','0977ff','cb2bcd','09cfdb','8509db','fff600','6b4e00','ffffff']
 #var colours = ['ffe6c9','92c196','a6cbff','f4c1f5','cf89ff'] design 2.0
 var colours = ['cdb383', '92c676','97b7eb','e081eb','99fff5','c599ff','fef07b','fe7b7b','58ffbd']#design 3.0
 var outline_colours = ['bbab8e','97aa8c','a4c2c6','e1b1d6','ffffff']
-var sizes = [0.8,0.85,0.9,0.95,1,1.05]
+var sizes = [0.8,0.85,0.9,0.95,0.95,0.95,0.95,0.95,0.95,0.95]
 
 var double = ['Nice','Good Job','Sweet','Amazing'] 
 var triple = ['Awesome','Combo!','Super','Supurb']
@@ -85,6 +85,7 @@ func _on_Node_input_event(viewport, event, shape_idx):
 		main.pressed = true
 		main.pressed_position = get_global_mouse_position()
 	if event.is_action_released('left_click') and state == STATES.hand and main.selected_card == self and !main.select_assist:
+		return
 		if selected:
 			selected(false)
 		else:

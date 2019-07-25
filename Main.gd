@@ -9,7 +9,6 @@ onready var score_label = get_node('Control/Header/Score')
 onready var score_animation = get_node('Control/Header/ScoreAnimationPlayer')
 onready var high_score_label = get_node('Control/Header/HighScoreLabel')
 onready var sub_score = get_node('Control/Header/SubScore')
-onready var game_over = get_node('GameOver')
 onready var tween = $Tween
 onready var animation = $AnimationPlayer
 onready var menu = get_node("Menu")
@@ -112,9 +111,6 @@ func _input(event):
 		tile_map.place(selected_card, tile_map.coordinates(tile_map.get_global_mouse_position()))
 	if event.is_action_pressed('left_click') and select_assist:
 		var third = 600/3.0
-		print(third)
-		print(hand.get_global_mouse_position())
-		print(get_viewport().size.x)
 		var sector = floor(hand.get_global_mouse_position().x/third)
 		var select_card = hand.cards[sector]
 		selected_card = select_card
@@ -126,6 +122,8 @@ func _input(event):
 		swiping = true
 		pressed = true
 		swipe_spot = hand.get_global_mouse_position()
+	if event.is_action_pressed('right_click'):
+		game_over()
 #		pressed_position = selected_card.get_global_position()
 #		selected_card.set_global_position(selected_card.get_global_mouse_position())
 #		selected_card.placing(true)
@@ -248,7 +246,6 @@ func check_results(type, shape_nodes, number_nodes, original_node, last_node = n
 	else:
 		if tutorial and type == "Merge":
 			var empty = true
-			print(hand.cards)
 			for card in hand.cards:
 				if card!=null:
 					empty = false
@@ -256,9 +253,11 @@ func check_results(type, shape_nodes, number_nodes, original_node, last_node = n
 					emit_signal('target_node_failed')
 		if times > 1:
 			original_node.comment(times-2)
+		var count = 0
 		for x in range(map.size()):
 			for y in range(map[x].size()):
 				if !map[x][y]:
+					count+=1
 					return
 		game_over()
 func _on_CheckTimer_timeout():
@@ -279,20 +278,29 @@ func check_board_value():
 	for x in range(map.size()):
 		for y in range(map[0].size()):
 			if map[x][y]:
-				sum+=(pow(3,map[x][y].shape-1)*pow(3,map[x][y].number-1))
+				sum+=(pow(3,map[x][y].shape-1)+pow(3,map[x][y].number-1))#sum+=(pow(3,map[x][y].shape-1)*pow(3,map[x][y].number-1))
 	if sum>high_score:
 		change_high_score(sum)
 		save_data()
 	return sum 
 
 func game_over():
-	tween.interpolate_property(game_over,'modulate',Color(1,1,1,0),Color(1,1,1,1),1,Tween.TRANS_LINEAR,Tween.EASE_IN_OUT)
-	tween.start()
-	game_over.show()
+	animation.play("GameOver")
+	hand.disappear()
+	for x in range(map.size()):
+		for y in range(map[0].size()):
+			user_data["Map"][x][y]=null
+	for i in range(hand.cards.size()):
+		user_data["Hand"][i] = null
+	save_data()
 func change_score(new_score):
 	score = new_score
 	score_animation.play('Score')
 	score_label.set_text(str(new_score))
+	if str(score).length()>5:
+		score_label.set('rect_scale',Vector2(0.9,0.9))
+	else:
+		score_label.set('rect_scale',Vector2(1,1))
 	if score >= current_high_score:
 		current_high_score = score
 		sub_score.set_text(str(score))
@@ -337,6 +345,10 @@ func load_board_state():
 				var node_instance = node_pkd.instance()
 				hand.add_child(node_instance)
 				node_instance.init(data_map[x][y][0], data_map[x][y][1])
+				if data_map[x][y][0] > highest_shape:
+					highest_shape = data_map[x][y][0]
+				if data_map[x][y][1] > highest_number:
+					highest_number = data_map[x][y][1]
 				tile_map.place(node_instance,Vector2(x,y), true)
 	for x in range(user_data["Hand"].size()):
 		if user_data["Hand"][x]:
@@ -394,6 +406,6 @@ func _on_Reset_pressed():
 
 
 func _on_MenuButton_pressed():
-	print('test')
+	menu.load_board_state()
 	$Camera2D.to_menu()
 	pass # Replace with function body.

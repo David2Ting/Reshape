@@ -5,6 +5,7 @@ extends Button
 # var b = "text"
 var state = 1 setget change_state
 onready var sprite = $Sprite
+onready var option_label = $Option
 var on_texture = preload("res://Images/Ui/On.png")
 var off_texture = preload("res://Images/Ui/Off.png")
 # Called when the node enters the scene tree for the first time.
@@ -19,12 +20,19 @@ func _ready():
 func change_state(new_state):
 	state = new_state
 	if new_state:
-		sprite.set_texture(on_texture)
+		option_label.set_text('On')
 	else:
-		sprite.set_texture(off_texture)
+		option_label.set_text('Off')
 func _on_Music_button_pressed():
 	if state:
 		change_state(0)
 	else:
 		change_state(1)
 	pass # Replace with function body.
+
+
+func _on_Music_button_button_down():
+	option_label.set_modulate('d3d3d3')
+	pass # Replace with function body.
+func _on_Music_button_button_up():
+	option_label.set_modulate('8a8a8a')

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Menu.gd" type="Script" id=1]
 [ext_resource path="res://Images/Return.png" type="Texture" id=2]
@@ -8,8 +8,9 @@
 [ext_resource path="res://Images/Fonts/Roboto/Roboto-BoldCondensedItalic.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://Menu_button.gd" type="Script" id=7]
 [ext_resource path="res://Images/Ui/On.png" type="Texture" id=8]
-[ext_resource path="res://Images/Ui/Tutorial_up.png" type="Texture" id=9]
-[ext_resource path="res://Images/Ui/Tutorial_down.png" type="Texture" id=10]
+[ext_resource path="res://Images/Fonts/Roboto/Roboto-Thin.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://Images/Ui/Tutorial_up.png" type="Texture" id=10]
+[ext_resource path="res://Images/Ui/Tutorial_down.png" type="Texture" id=11]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -27,6 +28,10 @@ font_data = ExtResource( 6 )
 size = 70
 outline_color = Color( 0.615686, 0.615686, 0.615686, 1 )
 font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 60
+font_data = ExtResource( 9 )
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -121,6 +126,7 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="Music_button" type="Button" parent="Control/Options"]
+self_modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -132,6 +138,7 @@ margin_bottom = -321.869
 script = ExtResource( 7 )
 
 [node name="Sprite" type="Sprite" parent="Control/Options/Music_button"]
+visible = false
 position = Vector2( 56.798, 29.6849 )
 scale = Vector2( 0.55, 0.55 )
 texture = ExtResource( 8 )
@@ -145,7 +152,16 @@ custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.494118, 0.494118, 0.494118, 1 )
 text = "Music"
 
+[node name="Option" type="Label" parent="Control/Options/Music_button"]
+modulate = Color( 0.541176, 0.541176, 0.541176, 1 )
+margin_top = -5.314
+margin_right = 112.0
+margin_bottom = 65.686
+custom_fonts/font = SubResource( 5 )
+text = "On"
+
 [node name="Music_button2" type="Button" parent="Control/Options"]
+self_modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -157,6 +173,7 @@ margin_bottom = -241.276
 script = ExtResource( 7 )
 
 [node name="Sprite" type="Sprite" parent="Control/Options/Music_button2"]
+visible = false
 position = Vector2( 56.798, 29.6849 )
 scale = Vector2( 0.55, 0.55 )
 texture = ExtResource( 8 )
@@ -170,7 +187,16 @@ custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.494118, 0.494118, 0.494118, 1 )
 text = "Sound"
 
+[node name="Option" type="Label" parent="Control/Options/Music_button2"]
+modulate = Color( 0.541176, 0.541176, 0.541176, 1 )
+margin_top = -5.314
+margin_right = 112.0
+margin_bottom = 65.686
+custom_fonts/font = SubResource( 5 )
+text = "On"
+
 [node name="Music_button3" type="Button" parent="Control/Options"]
+self_modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -182,6 +208,7 @@ margin_bottom = -158.517
 script = ExtResource( 7 )
 
 [node name="Sprite" type="Sprite" parent="Control/Options/Music_button3"]
+visible = false
 position = Vector2( 56.798, 29.6849 )
 scale = Vector2( 0.55, 0.55 )
 texture = ExtResource( 8 )
@@ -195,6 +222,14 @@ custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.494118, 0.494118, 0.494118, 1 )
 text = "Mode"
 
+[node name="Option" type="Label" parent="Control/Options/Music_button3"]
+modulate = Color( 0.541176, 0.541176, 0.541176, 1 )
+margin_top = -5.314
+margin_right = 112.0
+margin_bottom = 65.686
+custom_fonts/font = SubResource( 5 )
+text = "On"
+
 [node name="TutorialButton" type="TextureButton" parent="Control/Options"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -204,10 +239,16 @@ margin_left = -214.067
 margin_top = -137.168
 margin_right = 213.933
 margin_bottom = -22.1679
-texture_normal = ExtResource( 9 )
-texture_pressed = ExtResource( 10 )
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 11 )
 [connection signal="pressed" from="Control/Header/TextureButton" to="." method="_on_TextureButton_pressed"]
+[connection signal="button_down" from="Control/Options/Music_button" to="Control/Options/Music_button" method="_on_Music_button_button_down"]
+[connection signal="button_up" from="Control/Options/Music_button" to="Control/Options/Music_button" method="_on_Music_button_button_up"]
 [connection signal="pressed" from="Control/Options/Music_button" to="Control/Options/Music_button" method="_on_Music_button_pressed"]
+[connection signal="button_down" from="Control/Options/Music_button2" to="Control/Options/Music_button2" method="_on_Music_button_button_down"]
+[connection signal="button_up" from="Control/Options/Music_button2" to="Control/Options/Music_button2" method="_on_Music_button_button_up"]
 [connection signal="pressed" from="Control/Options/Music_button2" to="Control/Options/Music_button2" method="_on_Music_button_pressed"]
+[connection signal="button_down" from="Control/Options/Music_button3" to="Control/Options/Music_button3" method="_on_Music_button_button_down"]
+[connection signal="button_up" from="Control/Options/Music_button3" to="Control/Options/Music_button3" method="_on_Music_button_button_up"]
 [connection signal="pressed" from="Control/Options/Music_button3" to="Control/Options/Music_button3" method="_on_Music_button_pressed"]
 [connection signal="pressed" from="Control/Options/TutorialButton" to="." method="_on_TutorialButton_pressed"]

@@ -7,6 +7,7 @@ onready var main = get_node("/root/Main")
 onready var map = get_node("Control/Mid/MapContainer/HighScore")
 onready var map_container = get_node("Control/Mid/MapContainer")
 onready var high_score_label = get_node('Control/Mid/HighScoreLabel')
+onready var highscore_container = get_node("Control/Mid/MapContainer/HighScore")
 var node_pkd = preload("res://Node.tscn")
 
 func _ready():
@@ -17,12 +18,13 @@ func _ready():
 #	pass
 
 func load_board_state():
+	for child in highscore_container.get_children():
+		child.queue_free()
 	var data_map = main.user_data["HighestState"]
 	var data_score = main.user_data["Highscore"]
 	for x in range(data_map.size()):
 		for y in range(data_map[0].size()):
 			if data_map[x][y]:
-				print('test')
 				var node_instance = node_pkd.instance()
 				map_container.get_node('HighScore').add_child(node_instance)
 				node_instance.init(data_map[x][y][0], data_map[x][y][1])
