@@ -39,14 +39,18 @@ anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 1 )
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="Header" type="Control" parent="Control"]
-anchor_right = 1.0
+margin_right = 600.0
+margin_bottom = 171.0
 mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
 
 [node name="TextureButton" type="TextureButton" parent="Control/Header"]
 anchor_left = 0.5
@@ -73,16 +77,16 @@ text = "Back"
 align = 1
 
 [node name="Mid" type="Control" parent="Control"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -300.0
-margin_right = 300.0
+margin_top = 175.0
+margin_right = 600.0
+margin_bottom = 653.0
 mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.4
 
 [node name="MapContainer" type="Node2D" parent="Control/Mid"]
-position = Vector2( 117.945, -25.7495 )
+position = Vector2( 117.945, 328.694 )
 scale = Vector2( 0.7, 0.7 )
 script = ExtResource( 4 )
 
@@ -110,9 +114,9 @@ format = 1
 
 [node name="HighScoreLabel" type="Label" parent="Control/Mid"]
 margin_left = 78.8112
-margin_top = -411.0
+margin_top = -72.1199
 margin_right = 520.811
-margin_bottom = -261.0
+margin_bottom = 77.8801
 custom_fonts/font = SubResource( 3 )
 text = "Highscore
 0
@@ -120,10 +124,12 @@ text = "Highscore
 align = 1
 
 [node name="Options" type="Control" parent="Control"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
+margin_top = 657.0
+margin_right = 600.0
+margin_bottom = 1000.0
 mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Music_button" type="Button" parent="Control/Options"]
 self_modulate = Color( 1, 1, 1, 0 )
@@ -132,9 +138,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = 61.228
-margin_top = -380.869
+margin_top = -194.559
 margin_right = 173.228
-margin_bottom = -321.869
+margin_bottom = -135.559
 script = ExtResource( 7 )
 
 [node name="Sprite" type="Sprite" parent="Control/Options/Music_button"]
@@ -167,9 +173,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = 61.228
-margin_top = -300.276
+margin_top = -113.966
 margin_right = 173.228
-margin_bottom = -241.276
+margin_bottom = -54.9657
 script = ExtResource( 7 )
 
 [node name="Sprite" type="Sprite" parent="Control/Options/Music_button2"]
@@ -202,9 +208,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = 61.228
-margin_top = -217.517
+margin_top = -31.2067
 margin_right = 173.228
-margin_bottom = -158.517
+margin_bottom = 27.7933
 script = ExtResource( 7 )
 
 [node name="Sprite" type="Sprite" parent="Control/Options/Music_button3"]
@@ -232,13 +238,13 @@ text = "On"
 
 [node name="TutorialButton" type="TextureButton" parent="Control/Options"]
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 1.0
 margin_left = -214.067
-margin_top = -137.168
+margin_top = -121.13
 margin_right = 213.933
-margin_bottom = -22.1679
+margin_bottom = -6.1297
 texture_normal = ExtResource( 10 )
 texture_pressed = ExtResource( 11 )
 [connection signal="pressed" from="Control/Header/TextureButton" to="." method="_on_TextureButton_pressed"]
