@@ -302,18 +302,21 @@ func game_over():
 	save_data()
 func change_score(new_score):
 	score = new_score
-	score_animation.play('Score')
-	score_label.set_text(str(new_score))
 	if str(score).length()>5:
 		score_label.set('rect_scale',Vector2(0.9,0.9))
 	else:
 		score_label.set('rect_scale',Vector2(1,1))
-	if score >= current_high_score:
-		current_high_score = score
-		sub_score.set_text(str(score))
+	if score == current_high_score:
 		sub_score.hide()
+	elif score > current_high_score:
+		current_high_score = score
+		sub_score.hide()
+		score_animation.play('Score')
+		score_label.set_text(str(new_score))
 	elif score < current_high_score:
+		score_animation.play('UnderScore')
 		sub_score.show()
+		sub_score.set_text(str(new_score))
 	if score >= high_score:
 		save_high_state()
 
