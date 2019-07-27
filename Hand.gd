@@ -71,16 +71,13 @@ func random_num():
 	var number_num
 	while(!shape_num or (black_list_shape.find(shape_num)>-1 or black_list_number.find(number_num)>-1)):
 		var rand_goal_num = round(rand_range(goal_num-1,goal_num+1)) 
-		print('rand_goal'+str(rand_goal_num))
 		var times = 3
 		shape_num = 0
 		number_num = 0
 		for i in range(times):
 			var new_shape_num = randi()%int((min(int(rand_goal_num-1),int(main.highest_shape-1))))+1
 			shape_num += new_shape_num
-			print('shape_num '+str(shape_num))
 			number_num += int(clamp((rand_goal_num-new_shape_num),1,main.highest_number-1))
-			print('number_num '+str(number_num))
 		shape_num = round(shape_num/float(times))
 		number_num = round(number_num/float(times))
 	if previous_shape == shape_num:

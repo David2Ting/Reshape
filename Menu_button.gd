@@ -19,10 +19,16 @@ func _ready():
 
 func change_state(new_state):
 	state = new_state
-	if new_state:
-		option_label.set_text('On')
+	if get_name()=='Mode_button':
+		if new_state:
+			option_label.set_text('Light')
+		else:
+			option_label.set_text('Dark')
 	else:
-		option_label.set_text('Off')
+		if new_state:
+			option_label.set_text('On')
+		else:
+			option_label.set_text('Off')
 func _on_Music_button_pressed():
 	if state:
 		change_state(0)

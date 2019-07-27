@@ -28,8 +28,8 @@ var colours = ['cdb383', '92c676','97b7eb','e081eb','99fff5','c599ff','fef07b','
 var outline_colours = ['bbab8e','97aa8c','a4c2c6','e1b1d6','ffffff']
 var sizes = [0.8,0.85,0.9,0.95,0.95,0.95,0.95,0.95,0.95,0.95]
 
-var double = ['Nice','Good Job','Sweet','Amazing'] 
-var triple = ['Awesome','Combo!','Super','Supurb']
+var double = ['Nice','Double!','Amazing','Combo!'] 
+var triple = ['Awesome','Triple!','Super','Supurb']
 var super = ['Extraordinary!','Legendary!','Unbelievable','Spectacular!']
 var comments = [double,triple,super]
 func _ready():

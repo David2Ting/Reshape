@@ -5,15 +5,14 @@
 [ext_resource path="res://Images/Fonts/Roboto/Roboto-Light.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://MapContainer.gd" type="Script" id=4]
 [ext_resource path="res://Background.png" type="Texture" id=5]
-[ext_resource path="res://Images/Fonts/Roboto/Roboto-BoldCondensedItalic.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Images/Fonts/Roboto/Roboto-Thin.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://Menu_button.gd" type="Script" id=7]
 [ext_resource path="res://Images/Ui/On.png" type="Texture" id=8]
-[ext_resource path="res://Images/Fonts/Roboto/Roboto-Thin.ttf" type="DynamicFontData" id=9]
-[ext_resource path="res://Images/Ui/Tutorial_up.png" type="Texture" id=10]
-[ext_resource path="res://Images/Ui/Tutorial_down.png" type="Texture" id=11]
+[ext_resource path="res://Images/Ui/Tutorial_up.png" type="Texture" id=9]
+[ext_resource path="res://Images/Ui/Tutorial_down.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=1]
-size = 50
+size = 100
 outline_color = Color( 0.611765, 0.611765, 0.611765, 1 )
 font_data = ExtResource( 3 )
 
@@ -21,7 +20,7 @@ font_data = ExtResource( 3 )
 blend_mode = 1
 
 [sub_resource type="DynamicFont" id=3]
-size = 40
+size = 50
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=4]
@@ -31,7 +30,11 @@ font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=5]
 size = 60
-font_data = ExtResource( 9 )
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 80
+font_data = ExtResource( 3 )
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -46,13 +49,14 @@ mouse_filter = 2
 
 [node name="Header" type="Control" parent="Control"]
 margin_right = 600.0
-margin_bottom = 171.0
+margin_bottom = 106.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.5
+size_flags_stretch_ratio = 0.4
 
 [node name="TextureButton" type="TextureButton" parent="Control/Header"]
+self_modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -91.0
@@ -64,40 +68,45 @@ rect_pivot_offset = Vector2( 71.3131, -0.202028 )
 texture_normal = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="Control/Header/TextureButton"]
-visible = false
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -49.4999
-margin_top = 0.327759
-margin_right = 79.5001
-margin_bottom = 60.3278
+margin_left = -108.222
+margin_top = 40.0623
+margin_right = 107.778
+margin_bottom = 158.062
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 0.960784, 0.898039, 1 )
 text = "Back"
 align = 1
 
 [node name="Mid" type="Control" parent="Control"]
-margin_top = 175.0
+margin_top = 110.0
 margin_right = 600.0
-margin_bottom = 653.0
+margin_bottom = 617.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 1.4
+size_flags_stretch_ratio = 1.9
 
-[node name="MapContainer" type="Node2D" parent="Control/Mid"]
-position = Vector2( 117.945, 328.694 )
+[node name="MidContainer" type="Control" parent="Control/Mid"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="MapContainer" type="Node2D" parent="Control/Mid/MidContainer"]
+position = Vector2( -182.571, 135.466 )
 scale = Vector2( 0.7, 0.7 )
 script = ExtResource( 4 )
 
-[node name="Sprite" type="Sprite" parent="Control/Mid/MapContainer"]
+[node name="Sprite" type="Sprite" parent="Control/Mid/MidContainer/MapContainer"]
 position = Vector2( 260.974, -124.954 )
 scale = Vector2( 0.59, 0.59 )
 z_index = -1
 z_as_relative = false
 texture = ExtResource( 5 )
 
-[node name="Sprite2" type="Sprite" parent="Control/Mid/MapContainer"]
+[node name="Sprite2" type="Sprite" parent="Control/Mid/MidContainer/MapContainer"]
 modulate = Color( 0.133333, 0.309804, 1, 0.294118 )
 material = SubResource( 2 )
 position = Vector2( 260.974, -124.954 )
@@ -106,27 +115,29 @@ z_index = -1
 z_as_relative = false
 texture = ExtResource( 5 )
 
-[node name="HighScore" type="TileMap" parent="Control/Mid/MapContainer"]
+[node name="HighScore" type="TileMap" parent="Control/Mid/MidContainer/MapContainer"]
 position = Vector2( 0, -387.812 )
 z_as_relative = false
 cell_size = Vector2( 130, 130 )
 format = 1
 
 [node name="HighScoreLabel" type="Label" parent="Control/Mid"]
-margin_left = 78.8112
-margin_top = -72.1199
-margin_right = 520.811
-margin_bottom = 77.8801
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -221.0
+margin_top = -203.193
+margin_right = 221.0
+margin_bottom = -143.193
 custom_fonts/font = SubResource( 3 )
-text = "Highscore
-0
-"
+text = "0"
 align = 1
 
 [node name="Options" type="Control" parent="Control"]
-margin_top = 657.0
+margin_top = 621.0
 margin_right = 600.0
-margin_bottom = 1000.0
+margin_bottom = 888.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -134,13 +145,11 @@ size_flags_vertical = 3
 [node name="Music_button" type="Button" parent="Control/Options"]
 self_modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
 margin_left = 61.228
-margin_top = -194.559
+margin_top = 14.4876
 margin_right = 173.228
-margin_bottom = -135.559
+margin_bottom = 73.4876
 script = ExtResource( 7 )
 
 [node name="Sprite" type="Sprite" parent="Control/Options/Music_button"]
@@ -166,34 +175,34 @@ margin_bottom = 65.686
 custom_fonts/font = SubResource( 5 )
 text = "On"
 
-[node name="Music_button2" type="Button" parent="Control/Options"]
+[node name="Sound_button" type="Button" parent="Control/Options"]
 self_modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = 61.228
-margin_top = -113.966
+margin_top = -38.4194
 margin_right = 173.228
-margin_bottom = -54.9657
+margin_bottom = 20.5809
 script = ExtResource( 7 )
 
-[node name="Sprite" type="Sprite" parent="Control/Options/Music_button2"]
+[node name="Sprite" type="Sprite" parent="Control/Options/Sound_button"]
 visible = false
 position = Vector2( 56.798, 29.6849 )
 scale = Vector2( 0.55, 0.55 )
 texture = ExtResource( 8 )
 
-[node name="Label" type="Label" parent="Control/Options/Music_button2"]
-margin_left = -233.13
+[node name="Label" type="Label" parent="Control/Options/Sound_button"]
+margin_left = -246.398
 margin_top = -13.9302
-margin_right = -46.1297
+margin_right = -48.3984
 margin_bottom = 69.0698
 custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.494118, 0.494118, 0.494118, 1 )
 text = "Sound"
 
-[node name="Option" type="Label" parent="Control/Options/Music_button2"]
+[node name="Option" type="Label" parent="Control/Options/Sound_button"]
 modulate = Color( 0.541176, 0.541176, 0.541176, 1 )
 margin_top = -5.314
 margin_right = 112.0
@@ -201,60 +210,79 @@ margin_bottom = 65.686
 custom_fonts/font = SubResource( 5 )
 text = "On"
 
-[node name="Music_button3" type="Button" parent="Control/Options"]
+[node name="Mode_button" type="Button" parent="Control/Options"]
 self_modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 1.0
 margin_left = 61.228
-margin_top = -31.2067
+margin_top = -89.1601
 margin_right = 173.228
-margin_bottom = 27.7933
+margin_bottom = -30.1601
 script = ExtResource( 7 )
 
-[node name="Sprite" type="Sprite" parent="Control/Options/Music_button3"]
+[node name="Sprite" type="Sprite" parent="Control/Options/Mode_button"]
 visible = false
 position = Vector2( 56.798, 29.6849 )
 scale = Vector2( 0.55, 0.55 )
 texture = ExtResource( 8 )
 
-[node name="Label" type="Label" parent="Control/Options/Music_button3"]
-margin_left = -233.13
+[node name="Label" type="Label" parent="Control/Options/Mode_button"]
+margin_left = -222.655
 margin_top = -13.9302
-margin_right = -46.1297
+margin_right = -35.6546
 margin_bottom = 69.0698
 custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.494118, 0.494118, 0.494118, 1 )
 text = "Mode"
 
-[node name="Option" type="Label" parent="Control/Options/Music_button3"]
+[node name="Option" type="Label" parent="Control/Options/Mode_button"]
 modulate = Color( 0.541176, 0.541176, 0.541176, 1 )
 margin_top = -5.314
 margin_right = 112.0
 margin_bottom = 65.686
 custom_fonts/font = SubResource( 5 )
-text = "On"
+text = "Light"
 
-[node name="TutorialButton" type="TextureButton" parent="Control/Options"]
+[node name="TutorialContainer" type="Control" parent="Control"]
+margin_top = 892.0
+margin_right = 600.0
+margin_bottom = 1000.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="TutorialButton" type="TextureButton" parent="Control/TutorialContainer"]
+self_modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -214.067
-margin_top = -121.13
-margin_right = 213.933
-margin_bottom = -6.1297
-texture_normal = ExtResource( 10 )
-texture_pressed = ExtResource( 11 )
+anchor_bottom = 0.5
+margin_left = -214.0
+margin_top = -66.4598
+margin_right = 214.0
+margin_bottom = 48.5406
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+
+[node name="Label" type="Label" parent="Control/TutorialContainer/TutorialButton"]
+margin_right = 425.0
+margin_bottom = 95.0
+custom_fonts/font = SubResource( 6 )
+custom_colors/font_color = Color( 0.352941, 0.247059, 0.356863, 1 )
+text = "Tutorial"
+align = 1
 [connection signal="pressed" from="Control/Header/TextureButton" to="." method="_on_TextureButton_pressed"]
 [connection signal="button_down" from="Control/Options/Music_button" to="Control/Options/Music_button" method="_on_Music_button_button_down"]
 [connection signal="button_up" from="Control/Options/Music_button" to="Control/Options/Music_button" method="_on_Music_button_button_up"]
 [connection signal="pressed" from="Control/Options/Music_button" to="Control/Options/Music_button" method="_on_Music_button_pressed"]
-[connection signal="button_down" from="Control/Options/Music_button2" to="Control/Options/Music_button2" method="_on_Music_button_button_down"]
-[connection signal="button_up" from="Control/Options/Music_button2" to="Control/Options/Music_button2" method="_on_Music_button_button_up"]
-[connection signal="pressed" from="Control/Options/Music_button2" to="Control/Options/Music_button2" method="_on_Music_button_pressed"]
-[connection signal="button_down" from="Control/Options/Music_button3" to="Control/Options/Music_button3" method="_on_Music_button_button_down"]
-[connection signal="button_up" from="Control/Options/Music_button3" to="Control/Options/Music_button3" method="_on_Music_button_button_up"]
-[connection signal="pressed" from="Control/Options/Music_button3" to="Control/Options/Music_button3" method="_on_Music_button_pressed"]
-[connection signal="pressed" from="Control/Options/TutorialButton" to="." method="_on_TutorialButton_pressed"]
+[connection signal="button_down" from="Control/Options/Sound_button" to="Control/Options/Sound_button" method="_on_Music_button_button_down"]
+[connection signal="button_up" from="Control/Options/Sound_button" to="Control/Options/Sound_button" method="_on_Music_button_button_up"]
+[connection signal="pressed" from="Control/Options/Sound_button" to="Control/Options/Sound_button" method="_on_Music_button_pressed"]
+[connection signal="button_down" from="Control/Options/Mode_button" to="Control/Options/Mode_button" method="_on_Music_button_button_down"]
+[connection signal="button_up" from="Control/Options/Mode_button" to="Control/Options/Mode_button" method="_on_Music_button_button_up"]
+[connection signal="pressed" from="Control/Options/Mode_button" to="Control/Options/Mode_button" method="_on_Music_button_pressed"]
+[connection signal="button_down" from="Control/TutorialContainer/TutorialButton" to="." method="_on_TutorialButton_button_down"]
+[connection signal="button_up" from="Control/TutorialContainer/TutorialButton" to="." method="_on_TutorialButton_button_up"]
+[connection signal="pressed" from="Control/TutorialContainer/TutorialButton" to="." method="_on_TutorialButton_pressed"]

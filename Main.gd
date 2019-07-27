@@ -132,7 +132,7 @@ func _input(event):
 #			selected_card = null
 
 
-func check(node,index,type=null, shape_nodes=null, number_nodes=null, last_node = null, times = 0):
+func check(node,index,type=null, shape_nodes=null, number_nodes=null, last_node = null, times = 0, prev_nodes = null):
 	if !type or type=='Flash':
 		if !type:
 #			check_timer.start()
@@ -162,7 +162,7 @@ func check(node,index,type=null, shape_nodes=null, number_nodes=null, last_node 
 			check_results("Flash",shape_nodes,number_nodes,original_node)
 		else:
 			check_timer.start()
-			check_results("Merge", shape_nodes, number_nodes, original_node, last_node, times)
+			check_results("Merge", shape_nodes, number_nodes, original_node, last_node, times,prev_nodes)
 		
 	else:
 		if type == 'Shape':
@@ -185,21 +185,26 @@ func check(node,index,type=null, shape_nodes=null, number_nodes=null, last_node 
 			return number_nodes
 	pass
 
-func check_results(type, shape_nodes, number_nodes, original_node, last_node = null, times=0):
+func check_results(type, shape_nodes, number_nodes, original_node, last_node = null, times=0,prev_nodes=null):
 	var max_shape = 0
 	var max_num = 0
 	var merge = false
 	var nodes = []
 	var merging_node = null
 	var scored = 0
+	var nodes_size = 0
 	if shape_nodes.size()>=3:
 		merge = true
 		max_shape = check_shape_num+1
 		nodes += shape_nodes
 	if number_nodes.size()>=3:
 		merge = true
+		for node in number_nodes:
+			if nodes.find(node)>-1:
+				nodes.append(node)
 		max_num = check_number_num+1
 		nodes += number_nodes
+	nodes_size = nodes.size()
 	if merge:
 		if type == 'Flash':
 			for node in nodes:
@@ -234,7 +239,7 @@ func check_results(type, shape_nodes, number_nodes, original_node, last_node = n
 			original_node.animation.play('Add')
 
 			state = STATES.checking
-			check(original_node,original_node.index,null,null,null,original_node,times+1)
+			check(original_node,original_node.index,null,null,null,original_node,times+1,nodes_size)
 			if max_shape > highest_shape:
 				highest_shape = max_shape
 			elif max_num > highest_number:
@@ -253,6 +258,8 @@ func check_results(type, shape_nodes, number_nodes, original_node, last_node = n
 					emit_signal('target_node_failed')
 		if times > 1:
 			original_node.comment(times-2)
+		elif prev_nodes and prev_nodes>4:
+			original_node.comment(0)
 		var count = 0
 		for x in range(map.size()):
 			for y in range(map[x].size()):
