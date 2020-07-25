@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Node.gd" type="Script" id=1]
 [ext_resource path="res://Images/Shapes/3.0/1.png" type="Texture" id=2]
@@ -60,7 +60,78 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=5]
-resource_name = "Double"
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Holder/Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Holder:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.15, 0.27 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 1.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Holder/Highlight:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.560784 ), Color( 0, 0, 0, 0.560784 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Pop"
+length = 0.4
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Holder/Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Holder:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.15, 0.27 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=8]
 length = 1.5
 step = 0.05
 tracks/0/type = "value"
@@ -85,7 +156,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.35, 1.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -124.04, -54.0995 ), Vector2( -124.528, -132 ), Vector2( -124.006, -144.64 ) ]
+"values": [ Vector2( -124.04, -52.679 ), Vector2( -124.528, -140.44 ), Vector2( -124.006, -156.66 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("CommentaryHolder/Commentary:rect_size")
@@ -124,7 +195,7 @@ tracks/4/keys = {
 "values": [ 45 ]
 }
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=9]
 size = 45
 use_filter = true
 font_data = ExtResource( 6 )
@@ -149,7 +220,7 @@ scale = Vector2( 1.13809, 1.13809 )
 texture = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="Holder"]
-modulate = Color( 0.345098, 1, 0.741176, 1 )
+modulate = Color( 0.592157, 0.435294, 0.8, 1 )
 scale = Vector2( 0.9, 0.9 )
 texture = ExtResource( 4 )
 
@@ -188,8 +259,13 @@ shape = SubResource( 2 )
 anims/Add = SubResource( 3 )
 anims/Flashing = SubResource( 4 )
 
+[node name="PopPlayer" type="AnimationPlayer" parent="."]
+anims/Add = SubResource( 5 )
+anims/Flashing = SubResource( 6 )
+anims/Pop = SubResource( 7 )
+
 [node name="CommentPlayer" type="AnimationPlayer" parent="."]
-anims/Double = SubResource( 5 )
+anims/Double = SubResource( 8 )
 
 [node name="CommentaryHolder" type="Node2D" parent="."]
 z_index = 2
@@ -197,15 +273,18 @@ z_as_relative = false
 
 [node name="Commentary" type="Label" parent="CommentaryHolder"]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = -124.04
-margin_top = -54.0995
-margin_right = 125.96
-margin_bottom = -1.09952
+margin_left = -124.006
+margin_top = -156.66
+margin_right = 125.994
+margin_bottom = -62.6602
 grow_horizontal = 2
 grow_vertical = 2
-rect_pivot_offset = Vector2( 125.398, 26.5124 )
-custom_fonts/font = SubResource( 6 )
+rect_scale = Vector2( 1.4, 1.4 )
+rect_pivot_offset = Vector2( 124.088, 71.3559 )
+custom_fonts/font = SubResource( 9 )
 custom_colors/font_color = Color( 0.352941, 0.247059, 0.356863, 1 )
 text = "Supurb"
 align = 1
+valign = 2
+
 [connection signal="input_event" from="." to="." method="_on_Node_input_event"]

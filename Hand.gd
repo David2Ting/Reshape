@@ -18,6 +18,7 @@ func _ready():
 	pass
 
 func draw(i,start=null):
+	print(start)
 	var node_instance = node_pkd.instance()
 	node_instance.set_position(Vector2(spawn_points[i],300))
 	add_child(node_instance)
@@ -27,23 +28,25 @@ func draw(i,start=null):
 		cards[i] = null
 		var random_num = random_num()
 		node_instance.init(random_num.x,random_num.y)
-	node_instance.origin = to_global(Vector2(spawn_points[i],0))
+	node_instance.origin = Vector2(spawn_points[i],0)
 	node_instance.hand_pos = i
 	cards[i]=node_instance
-	tween.interpolate_property(node_instance,'position',node_instance.get_position(),Vector2(spawn_points[i],0),0.5,Tween.TRANS_QUAD,Tween.EASE_IN_OUT)
-	tween.start()
+	node_instance.move_tween.interpolate_property(node_instance,'position',node_instance.get_position(),Vector2(spawn_points[i],0),0.5,Tween.TRANS_QUAD,Tween.EASE_IN_OUT)
+	node_instance.move_tween.start()
 
 func disappear():
-	for card in cards:
+	var children = []+cards
+	cards = [null,null,null]
+	for card in children:
 		if card!=null:
 			card.state = card.STATES.board
 			tween.interpolate_property(card,'position',card.get_position(),Vector2(card.get_position().x,300),0.5,Tween.TRANS_QUAD,Tween.EASE_IN_OUT)
 	tween.start()
 	yield(tween,'tween_completed')
-	for card in cards:
+	for card in children:
 		if card!=null:
 			card.queue_free()
-	cards = [null,null,null]
+
 
 func draw_specific(i,shape,number):
 	var node_instance = node_pkd.instance()
@@ -90,11 +93,9 @@ func random_num():
 	else:
 		previous_number = number_num
 		previous_number_count = 1
-	print(number_num)
 	return Vector2(shape_num,number_num)
 
 func check_goal_num():
 	var new_goal_num = round((main.highest_shape+main.highest_number)/2.4)
 	if new_goal_num > goal_num:
 		goal_num = new_goal_num
-	print('goal! '+str(goal_num))

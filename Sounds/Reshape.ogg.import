@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Reshape.ogg-7d7655234aaf49a8ceffb5797c25a7a0.oggstr"
+
+[deps]
+
+source_file="res://Sounds/Reshape.ogg"
+dest_files=[ "res://.import/Reshape.ogg-7d7655234aaf49a8ceffb5797c25a7a0.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

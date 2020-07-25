@@ -15,7 +15,7 @@ func to_game():
 
 func to_menu():
 	print('test')
-	tween.interpolate_property(self,'position',get_position(),Vector2(0,-1226.097),0.5,Tween.TRANS_QUAD,Tween.EASE_IN_OUT)
+	tween.interpolate_property(self,'position',get_position(),Vector2(700,0),0.5,Tween.TRANS_QUAD,Tween.EASE_IN_OUT)
 	tween.start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

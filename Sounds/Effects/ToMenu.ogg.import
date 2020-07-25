@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/ToMenu.ogg-acada10b1bef590f885717f3c5371be6.oggstr"
+
+[deps]
+
+source_file="res://Sounds/Effects/ToMenu.ogg"
+dest_files=[ "res://.import/ToMenu.ogg-acada10b1bef590f885717f3c5371be6.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

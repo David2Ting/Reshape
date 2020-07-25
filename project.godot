@@ -17,7 +17,12 @@ _global_script_class_icons={
 
 config/name="Reshape"
 run/main_scene="res://Main.tscn"
-config/icon="res://Images/Icon2.0.png"
+config/icon="res://Images/Icon/Icon1.png"
+
+[autoload]
+
+globals="*res://globals.gd"
+MusicPlayer="*res://MusicPlayer.tscn"
 
 [display]
 

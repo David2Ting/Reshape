@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://Images/Fonts/Roboto/Roboto-Light.ttf" type="DynamicFontData" id=2]
@@ -11,6 +11,10 @@
 [ext_resource path="res://Camera2D.gd" type="Script" id=9]
 [ext_resource path="res://Menu.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Images/MenuIcon.png" type="Texture" id=11]
+[ext_resource path="res://Sounds/Effects/Place.wav" type="AudioStream" id=12]
+[ext_resource path="res://Sounds/Effects/GameOver.ogg" type="AudioStream" id=13]
+[ext_resource path="res://Sounds/Effects/Blop-Mark_DiAngelo-79054334.wav" type="AudioStream" id=14]
+[ext_resource path="res://Sounds/Effects/Back.ogg" type="AudioStream" id=15]
 
 [sub_resource type="DynamicFont" id=1]
 size = 120
@@ -50,7 +54,7 @@ tracks/0/keys = {
 "values": [ Color( 0.27451, 0.27451, 0.27451, 1 ), Color( 0.631373, 0.631373, 0.631373, 1 ), Color( 0.27451, 0.27451, 0.27451, 1 ) ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=6]
 resource_name = "UnderScore"
 length = 0.2
 tracks/0/type = "value"
@@ -66,20 +70,19 @@ tracks/0/keys = {
 "values": [ Color( 0.478431, 0.478431, 0.478431, 1 ), Color( 0.807843, 0.807843, 0.807843, 1 ), Color( 0.478431, 0.478431, 0.478431, 1 ) ]
 }
 
-[sub_resource type="DynamicFontData" id=6]
+[sub_resource type="DynamicFontData" id=7]
 font_path = "res://Images/Fonts/Roboto/Roboto-Thin.ttf"
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=8]
 size = 60
 outline_color = Color( 0.611765, 0.611765, 0.611765, 1 )
-font_data = SubResource( 6 )
+font_data = SubResource( 7 )
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=9]
 size = 100
 font_data = ExtResource( 2 )
 
-[sub_resource type="Animation" id=9]
-resource_name = "GameOver"
+[sub_resource type="Animation" id=10]
 length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("GameOverLabel:modulate")
@@ -118,7 +121,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.913725, 0.87451, 0.909804, 0.372549 ) ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Camera2D:position")
 tracks/0/interp = 1
@@ -144,7 +147,47 @@ tracks/1/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="Animation" id=12]
+resource_name = "UnGameOver"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("GameOverLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1.7 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Control/Centre/Container/NodeHolder:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1.7 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Control/Centre/Container/Background:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.7 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="DynamicFont" id=13]
 size = 50
 font_data = ExtResource( 2 )
 
@@ -167,13 +210,13 @@ size_flags_vertical = 3
 
 [node name="Score" type="Label" parent="Control/Header"]
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.5
 margin_left = -459.5
-margin_top = -177.0
+margin_top = -38.2067
 margin_right = 459.5
-margin_bottom = -0.300003
+margin_bottom = 138.493
 rect_pivot_offset = Vector2( 460.013, 122.962 )
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0.27451, 0.27451, 0.27451, 1 )
@@ -183,13 +226,13 @@ valign = 1
 
 [node name="SubScore" type="Label" parent="Control/Header"]
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -53.0
-margin_top = -36.0
-margin_right = 53.0
-margin_bottom = -0.300003
+anchor_bottom = 0.5
+margin_left = -52.1426
+margin_top = 102.793
+margin_right = 53.8574
+margin_bottom = 138.793
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0.478431, 0.478431, 0.478431, 1 )
 text = "0"
@@ -197,61 +240,81 @@ align = 1
 valign = 1
 
 [node name="HighScoreLabel" type="Label" parent="Control/Header"]
+visible = false
 anchor_left = 1.0
-anchor_top = 0.5
+anchor_top = 0.2
 anchor_right = 1.0
-anchor_bottom = 0.5
+anchor_bottom = 0.2
 margin_left = -174.0
-margin_top = -26.737
+margin_top = 39.563
 margin_right = -25.0
-margin_bottom = 33.2629
+margin_bottom = 99.5629
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.464844, 0.464844, 0.464844, 1 )
 text = "0"
 align = 1
 
 [node name="HighScore" type="Label" parent="Control/Header"]
+visible = false
 anchor_left = 1.0
-anchor_top = 0.5
+anchor_top = 0.2
 anchor_right = 1.0
-anchor_bottom = 0.5
+anchor_bottom = 0.2
 margin_left = -188.388
-margin_top = -75.6091
+margin_top = -9.3091
 margin_right = -12.3875
-margin_bottom = -27.6091
+margin_bottom = 38.6909
 custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.611765, 0.611765, 0.611765, 1 )
 text = "Highscore"
 
 [node name="ScoreAnimationPlayer" type="AnimationPlayer" parent="Control/Header"]
 anims/Score = SubResource( 5 )
-anims/UnderScore = SubResource( 12 )
+anims/UnderScore = SubResource( 6 )
 
 [node name="Reset" type="Button" parent="Control/Header"]
 self_modulate = Color( 1, 1, 1, 0 )
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = 26.9735
-margin_top = -31.773
-margin_right = 168.973
-margin_bottom = 26.227
+anchor_top = 0.2
+anchor_bottom = 0.2
+margin_left = 27.0
+margin_top = 0.799999
+margin_right = 178.0
+margin_bottom = 58.8
 
 [node name="Label" type="Label" parent="Control/Header/Reset"]
+anchor_left = 0.5
 anchor_top = 0.5
+anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -0.907501
-margin_top = -69.892
-margin_right = 149.092
-margin_bottom = 1.10804
-custom_fonts/font = SubResource( 7 )
+margin_left = -76.4198
+margin_top = -39.207
+margin_right = 73.5802
+margin_bottom = 31.793
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 0.611765, 0.611765, 0.611765, 1 )
 text = "Reset"
 
-[node name="Reset_!" type="Button" parent="Control/Header"]
-visible = false
-margin_right = 150.0
-margin_bottom = 60.0001
-action_mode = 0
+[node name="Menu" type="Button" parent="Control/Header"]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_top = 0.2
+anchor_bottom = 0.2
+margin_left = 424.101
+margin_top = 0.799999
+margin_right = 575.101
+margin_bottom = 58.8
+
+[node name="Label" type="Label" parent="Control/Header/Menu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -76.4198
+margin_top = -39.207
+margin_right = 73.5802
+margin_bottom = 31.793
+custom_fonts/font = SubResource( 8 )
+custom_colors/font_color = Color( 0.611765, 0.611765, 0.611765, 1 )
+text = "Menu"
 
 [node name="Centre" type="Control" parent="Control"]
 margin_top = 225.0
@@ -334,6 +397,10 @@ one_shot = true
 wait_time = 0.04
 one_shot = true
 
+[node name="ResetTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [node name="GameOverLabel" type="Label" parent="."]
 modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
@@ -344,7 +411,7 @@ margin_left = -251.507
 margin_top = -49.992
 margin_right = 239.493
 margin_bottom = 68.008
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 custom_colors/font_color = Color( 0.352941, 0.247059, 0.356863, 1 )
 custom_constants/shadow_offset_x = 3
 text = "Game Over"
@@ -359,33 +426,61 @@ script = ExtResource( 9 )
 [node name="Tween" type="Tween" parent="Camera2D"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/GameOver = SubResource( 9 )
-anims/Shake = SubResource( 10 )
+anims/GameOver = SubResource( 10 )
+anims/Shake = SubResource( 11 )
+anims/UnGameOver = SubResource( 12 )
 
 [node name="Menu" parent="." instance=ExtResource( 10 )]
-margin_top = -1226.1
-margin_bottom = -1226.1
+margin_left = 700.0
+margin_right = 700.0
 
 [node name="MenuButton" type="TextureButton" parent="."]
 modulate = Color( 1, 0.960784, 0.898039, 1 )
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -55.8341
-margin_top = 10.7709
-margin_right = 59.1659
-margin_bottom = 60.7709
+margin_left = -92.4278
+margin_top = -128.767
+margin_right = 22.5722
+margin_bottom = -78.7673
 texture_normal = ExtResource( 11 )
 
 [node name="Label" type="Label" parent="MenuButton"]
 visible = false
-margin_left = -6.4707
-margin_top = -9.19517
-margin_right = 118.529
-margin_bottom = 50.8048
-custom_fonts/font = SubResource( 11 )
-text = "Menu"
+margin_left = -14.4941
+margin_top = 3.12504
+margin_right = 125.506
+margin_bottom = 63.125
+custom_fonts/font = SubResource( 13 )
+text = "MENU"
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="PlacePlayer" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource( 12 )
+volume_db = -7.0
+pitch_scale = 0.5
+
+[node name="GameOverPlayer" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource( 13 )
+volume_db = 14.226
+
+[node name="MergePlayer" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource( 14 )
+volume_db = -5.0
+pitch_scale = 0.9
+
+[node name="MenuPlayer" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource( 15 )
+volume_db = 1.0
+
+[connection signal="button_down" from="Control/Header/Reset" to="." method="_on_Reset_button_down"]
+[connection signal="button_up" from="Control/Header/Reset" to="." method="_on_Reset_button_up"]
 [connection signal="pressed" from="Control/Header/Reset" to="." method="_on_Reset_pressed"]
-[connection signal="pressed" from="Control/Header/Reset_!" to="." method="_on_Reset_pressed"]
+[connection signal="button_down" from="Control/Header/Menu" to="." method="_on_Menu_button_down"]
+[connection signal="button_up" from="Control/Header/Menu" to="." method="_on_Menu_button_up"]
+[connection signal="pressed" from="Control/Header/Menu" to="." method="_on_Menu_pressed"]
 [connection signal="timeout" from="CheckTimer" to="." method="_on_CheckTimer_timeout"]
 [connection signal="timeout" from="CheckTimerFlash" to="." method="_on_CheckTimerFlash_timeout"]
+[connection signal="button_down" from="MenuButton" to="." method="_on_MenuButton_button_down"]
+[connection signal="button_up" from="MenuButton" to="." method="_on_MenuButton_button_up"]
 [connection signal="pressed" from="MenuButton" to="." method="_on_MenuButton_pressed"]

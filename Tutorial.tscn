@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Tutorial.gd" type="Script" id=1]
 [ext_resource path="res://Images/Fonts/Roboto/Roboto-Light.ttf" type="DynamicFontData" id=2]
@@ -13,6 +13,8 @@
 [ext_resource path="res://Images/Fonts/Roboto/Roboto-Black.ttf" type="DynamicFontData" id=11]
 [ext_resource path="res://Camera2D.gd" type="Script" id=12]
 [ext_resource path="res://Images/MenuIcon.png" type="Texture" id=13]
+[ext_resource path="res://Sounds/Effects/Place.wav" type="AudioStream" id=14]
+[ext_resource path="res://Sounds/Effects/Blop-Mark_DiAngelo-79054334.wav" type="AudioStream" id=15]
 
 [sub_resource type="DynamicFont" id=1]
 size = 120
@@ -304,6 +306,14 @@ cell_size = Vector2( 130, 130 )
 format = 1
 tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0 )
 
+[node name="Selector" type="TileMap" parent="Control/Centre/Container/TileMapHolder"]
+modulate = Color( 1, 1, 1, 0.886275 )
+position = Vector2( 4, 0 )
+tile_set = ExtResource( 8 )
+cell_size = Vector2( 130, 130 )
+format = 1
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0 )
+
 [node name="NodeHolder" type="Node2D" parent="Control/Centre/Container"]
 position = Vector2( -300, -656 )
 
@@ -400,10 +410,25 @@ custom_fonts/font = SubResource( 13 )
 text = "Menu"
 
 [node name="TextTimer" type="Timer" parent="."]
-wait_time = 2.5
+wait_time = 3.3
 
 [node name="TextPause" type="Timer" parent="."]
 wait_time = 0.4
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="PlacePlayer" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource( 14 )
+volume_db = -7.0
+pitch_scale = 0.5
+
+[node name="MergePlayer" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource( 15 )
+volume_db = -5.0
+pitch_scale = 0.9
+
+[node name="MenuPlayer" type="AudioStreamPlayer2D" parent="Sounds"]
+
 [connection signal="target_node_failed" from="." to="." method="_on_Main_target_node_failed"]
 [connection signal="pressed" from="Control/Header/Reset" to="." method="_on_Reset_pressed"]
 [connection signal="pressed" from="Control/Header/Reset_!" to="." method="_on_Reset_pressed"]
